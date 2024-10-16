@@ -48,6 +48,25 @@
             border: none;
             /* Kenarlık yok */
         }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            /* Simge ve metni dikey olarak ortalar */
+            padding: 0.5rem 1rem;
+            /* Alan eklemek için */
+            font-size: 0.9rem;
+            /* Metin boyutunu ayarlamak için */
+        }
+
+        .dropdown-item iconify-icon {
+            margin-right: 0.5rem;
+            /* Simge ile metin arasında boşluk bırakmak için */
+            width: 20px;
+            /* Simge boyutunu ayarlamak için */
+            height: 20px;
+            /* Simge boyutunu ayarlamak için */
+        }
     </style>
 </head>
 
