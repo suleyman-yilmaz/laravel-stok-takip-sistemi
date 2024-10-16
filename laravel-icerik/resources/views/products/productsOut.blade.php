@@ -109,18 +109,18 @@
                                         <table class="table mb-0">
                                             <thead class="table-primary">
                                                 <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
+                                                    <th>Barkod No</th>
+                                                    <th>Ürün Adı</th>
+                                                    <th>Birimi</th>
+                                                    <th>İşlem</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td>1</td>
-                                                    <td>Nigam</td>
-                                                    <td>Eichmann</td>
-                                                    <td>Ekle</td>
+                                                    <td>Test Ürün</td>
+                                                    <td>AD</td>
+                                                    <td><a href="">Ekle</a></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -128,6 +128,142 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="container-fluid">
+                            <div class="card-body">
+                                <div class="product-list">
+                                    <div class="card">
+                                        <div class="card-body p-3">
+                                            <div class="d-flex justify-content-between align-items-center gap-6 mb-9">
+                                                <form class="position-relative">
+                                                    <input type="text" class="form-control search-chat py-2 ps-5"
+                                                        id="text-srh" placeholder="Search Product">
+                                                    <i
+                                                        class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                                                </form>
+                                                <a class="fs-6 text-muted" href="javascript:void(0)"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="Filter list">
+                                                    <i class="ti ti-filter"></i>
+                                                </a>
+                                            </div>
+                                            <div class="table-responsive border rounded">
+                                                <table class="table align-middle text-nowrap mb-0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">Barkod No</th>
+                                                            <th scope="col">Ürün Adı</th>
+                                                            <th scope="col">Çıkan Miktar</th>
+                                                            <th scope="col">Birimi</th>
+                                                            <th scope="col">Çıkış Fiyatı</th>
+                                                            <th scope="col">Toplam Tutar</th>
+                                                            <th scope="col">Çıkış Tarihi</th>
+                                                            <th scope="col">Açıklama</th>
+                                                            <th scope="col">İşlemler</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <div class="ms-3">
+                                                                        <h6 class="fw-semibold mb-0 fs-4">1
+                                                                        </h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h6 class="mb-0">Test Ürün</h6>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <h6 class="mb-0 fs-4">75</h6>
+                                                                </div>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <h6 class="mb-0 ms-2">AD</h6>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <h6 class="mb-0 ms-2">100.00</h6>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <h6 class="mb-0 ms-2">7500.00</h6>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <h6 class="mb-0 ms-2">2024-10-10</h6>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center">
+                                                                    <h6 class="mb-0 ms-2">Firma</h6>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="dropdown dropstart">
+                                                                    <a href="javascript:void(0)" class="text-muted"
+                                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                                        aria-expanded="false">
+                                                                        <i class="ti ti-dots-vertical fs-6"></i>
+                                                                    </a>
+                                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                        <li>
+                                                                            <a class="dropdown-item d-flex align-items-center gap-3"
+                                                                                href=""><i
+                                                                                    class="fs-4 ti ti-edit"></i>Düzenle</a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="dropdown-item d-flex align-items-center gap-3"
+                                                                                href=""><i
+                                                                                    class="fs-4 ti ti-trash"></i>Sil</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="d-flex align-items-center justify-content-end py-1">
+                                                    <p class="mb-0 fs-2">Rows per page:</p>
+                                                    <select
+                                                        class="form-select w-auto ms-0 ms-sm-2 me-8 me-sm-4 py-1 pe-7 ps-2 border-0"
+                                                        aria-label="Default select example">
+                                                        <option selected="">5</option>
+                                                        <option value="1">10</option>
+                                                        <option value="2">25</option>
+                                                    </select>
+                                                    <p class="mb-0 fs-2">1–5 of 12</p>
+                                                    <nav aria-label="...">
+                                                        <ul class="pagination justify-content-center mb-0 ms-8 ms-sm-9">
+                                                            <li class="page-item p-1">
+                                                                <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
+                                                                    href="javascript:void(0)">
+                                                                    <i class="ti ti-chevron-left"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li class="page-item p-1">
+                                                                <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
+                                                                    href="javascript:void(0)">
+                                                                    <i class="ti ti-chevron-right"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </nav>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>

@@ -24,27 +24,28 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-               <!-- Dil Seçenekleri -->
-<li class="nav-item dropdown mx-2">
-    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown"
-        aria-expanded="false">
-        <iconify-icon icon="material-symbols:language" width="1.2rem" height="1.2rem" style="color: black"></iconify-icon>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-        <li>
-            <a class="dropdown-item" href="#" onclick="changeLanguage('tr')">
-                <iconify-icon icon="emojione:flag-for-turkey"></iconify-icon> 
-                Turkish
-            </a>
-        </li>
-        <li>
-            <a class="dropdown-item" href="#" onclick="changeLanguage('en')">
-                <iconify-icon icon="emojione:flag-for-united-states"></iconify-icon>
-                English
-            </a>
-        </li>
-    </ul>
-</li>
+                <!-- Dil Seçenekleri -->
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <iconify-icon icon="material-symbols:language" width="1.2rem" height="1.2rem"
+                            style="color: black"></iconify-icon>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="changeLanguage('tr')">
+                                <iconify-icon icon="emojione:flag-for-turkey"></iconify-icon>
+                                Turkish
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="changeLanguage('en')">
+                                <iconify-icon icon="emojione:flag-for-united-states"></iconify-icon>
+                                English
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 <!-- Mevcut profil menüsü -->
                 <li class="nav-item dropdown">
@@ -63,8 +64,7 @@
                                 <i class="ti ti-list-check fs-6"></i>
                                 <p class="mb-0 fs-3">My Task</p>
                             </a>
-                            <a href="./authentication-login.html"
-                                class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                            <a href="/login" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                         </div>
                     </div>
                 </li>

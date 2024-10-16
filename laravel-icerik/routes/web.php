@@ -28,7 +28,7 @@ Route::get('/products/stock', function () {
 
 Route::get('/products/in', function () {
     return view('products.productsIn');
-});
+})->name('products.in');
 
 Route::get('/products/out', function () {
     return view('products.productsOut');

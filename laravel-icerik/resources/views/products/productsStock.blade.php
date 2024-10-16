@@ -22,12 +22,17 @@
                                 <div class="card">
                                     <div class="card-body p-3">
                                         <div class="d-flex justify-content-between align-items-center gap-6 mb-9">
-                                            <form class="position-relative">
+                                            <form class="d-flex align-items-center position-relative">
+                                                <input type="text" class="form-control search-chat py-2 ps-5 me-2"
+                                                    id="text-srh1" placeholder="Barkoda Göre Sorgula">
+
+                                                <input type="text" class="form-control search-chat py-2 ps-5 me-2"
+                                                    id="text-srh2" placeholder="Ürün Adına Göre Sorgula">
+
                                                 <input type="text" class="form-control search-chat py-2 ps-5"
-                                                    id="text-srh" placeholder="Search Product">
-                                                <i
-                                                    class="ti ti-search position-absolute top-50 start-0 translate-middle-y fs-6 text-dark ms-3"></i>
+                                                    id="text-srh3" placeholder="Birime Göre Sorgula">
                                             </form>
+
                                             <a class="fs-6 text-muted" href="javascript:void(0)" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" data-bs-title="Filter list">
                                                 <i class="ti ti-filter"></i>
@@ -37,209 +42,47 @@
                                             <table class="table align-middle text-nowrap mb-0">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" id="flexCheckDefault">
-                                                            </div>
-                                                        </th>
-                                                        <th scope="col">Products</th>
-                                                        <th scope="col">Date</th>
-                                                        <th scope="col">Status</th>
-                                                        <th scope="col">Price</th>
-                                                        <th scope="col">Actions</th>
+                                                        <th scope="col">Barkod No</th>
+                                                        <th scope="col">Ürün Adı</th>
+                                                        <th scope="col">Birimi</th>
+                                                        <th scope="col">Giren Miktar</th>
+                                                        <th scope="col">Çıkan Miktar</th>
+                                                        <th scope="col">Mevcut Miktar</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <div class="form-check mb-0">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" id="flexCheckDefault1">
-                                                            </div>
-                                                        </td>
-                                                        <td>
                                                             <div class="d-flex align-items-center">
-                                                                <img src="../assets/images/products/s1.jpg"
-                                                                    class="rounded-circle" alt="materialm-img"
-                                                                    width="56" height="56">
                                                                 <div class="ms-3">
-                                                                    <h6 class="fw-semibold mb-0 fs-4">Curology Face wash
-                                                                    </h6>
-                                                                    <p class="mb-0">books</p>
+                                                                    <h6 class="fw-semibold mb-0 fs-4">1</h6>
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <p class="mb-0">Thu, Jan 12 2023</p>
-                                                        </td>
-                                                        <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span class="text-bg-success p-1 rounded-circle"></span>
-                                                                <p class="mb-0 ms-2">InStock</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="mb-0 fs-4">$275</h6>
-                                                        </td>
-                                                        <td>
-                                                            <a class="fs-6 text-muted" href="javascript:void(0)"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-title="Edit">
-                                                                <i class="ti ti-dots-vertical"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check mb-0">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" id="flexCheckDefault2">
+                                                                <h6 class="fw-semibold mb-0 fs-4">Test Ürün</h6>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <img src="../assets/images/products/s2.jpg"
-                                                                    class="rounded-circle" alt="materialm-img"
-                                                                    width="56" height="56">
-                                                                <div class="ms-3">
-                                                                    <h6 class="fw-semibold mb-0 fs-4">Body Lotion</h6>
-                                                                    <p class="mb-0">books</p>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p class="mb-0">Thu, Jan 10 2023</p>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <span class="text-bg-danger p-1 rounded-circle"></span>
-                                                                <p class="mb-0 ms-2">Out of Stock</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="mb-0 fs-4">$89</h6>
-                                                        </td>
-                                                        <td>
-                                                            <a class="fs-6 text-muted" href="javascript:void(0)"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-title="Edit">
-                                                                <i class="ti ti-dots-vertical"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check mb-0">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" id="flexCheckDefault3">
+                                                                <h6 class="mb-0 ms-2">AD</h6>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <img src="../assets/images/products/s3.jpg"
-                                                                    class="rounded-circle" alt="materialm-img"
-                                                                    width="56" height="56">
-                                                                <div class="ms-3">
-                                                                    <h6 class="fw-semibold mb-0 fs-4">Smart Watch</h6>
-                                                                    <p class="mb-0">fashionbooks</p>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p class="mb-0">Thu, Jan 12 2023</p>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <span class="text-bg-success p-1 rounded-circle"></span>
-                                                                <p class="mb-0 ms-2">InStock</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="mb-0 fs-4">$125</h6>
-                                                        </td>
-                                                        <td>
-                                                            <a class="fs-6 text-muted" href="javascript:void(0)"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-title="Edit">
-                                                                <i class="ti ti-dots-vertical"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check mb-0">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" id="flexCheckDefault4">
+                                                                <h6 class="mb-0 fs-4">75</h6>
                                                             </div>
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <img src="../assets/images/products/s4.jpg"
-                                                                    class="rounded-circle" alt="materialm-img"
-                                                                    width="56" height="56">
-                                                                <div class="ms-3">
-                                                                    <h6 class="fw-semibold mb-0 fs-4">Glossy Solution</h6>
-                                                                    <p class="mb-0">electronics</p>
-                                                                </div>
+                                                                <h6 class="mb-0 fs-4">25</h6>
                                                             </div>
-                                                        </td>
-                                                        <td>
-                                                            <p class="mb-0">Mon, Jan 16 2023</p>
                                                         </td>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <span class="text-bg-success p-1 rounded-circle"></span>
-                                                                <p class="mb-0 ms-2">InStock</p>
+                                                                <h6 class="mb-0 fs-4">50</h6>
                                                             </div>
-                                                        </td>
-                                                        <td>
-                                                            <h6 class="mb-0 fs-4">$50</h6>
-                                                        </td>
-                                                        <td>
-                                                            <a class="fs-6 text-muted" href="javascript:void(0)"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-title="Edit">
-                                                                <i class="ti ti-dots-vertical"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="border-bottom-0">
-                                                            <div class="form-check mb-0">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="" id="flexCheckDefault5">
-                                                            </div>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <div class="d-flex align-items-center">
-                                                                <img src="../assets/images/products/s5.jpg"
-                                                                    class="rounded-circle" alt="materialm-img"
-                                                                    width="56" height="56">
-                                                                <div class="ms-3">
-                                                                    <h6 class="fw-semibold mb-0 fs-4">Derma-E</h6>
-                                                                    <p class="mb-0">fashionelectronics</p>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <p class="mb-0">Wed, Jan 18 2023</p>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <div class="d-flex align-items-center">
-                                                                <span class="text-bg-danger p-1 rounded-circle"></span>
-                                                                <p class="mb-0 ms-2">Out of Stock</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <h6 class="mb-0 fs-4">$650</h6>
-                                                        </td>
-                                                        <td class="border-bottom-0">
-                                                            <a class="fs-6 text-muted" href="javascript:void(0)"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                data-bs-title="Edit">
-                                                                <i class="ti ti-dots-vertical"></i>
-                                                            </a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
