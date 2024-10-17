@@ -18,7 +18,7 @@
         <div class="body-wrapper-inner">
             <div class="container-fluid">
 
-                <div class="card">
+                <div class="card" style="border-radius: 28px">
                     <div class="position-relative">
                         <img class="card-img-top" src="../assets/images/backgrounds/profilebg.jpg" alt="Card image cap"
                             style="max-height: 450px">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="card-footer text-bg-white">
+                    <div class="card-footer text-bg-white" id="hava-durumu">
                         <div class="row">
                             <div class="col-12">
                                 <div class="row text-center">
@@ -104,10 +104,10 @@
                 <div class="row">
                     <div class="col-lg-8 d-flex align-items-strech">
                         <div class="card w-100">
-                            <div class="card-body">
+                            <div class="card-body" id="genel-cizelge">
                                 <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                                     <div class="mb-3 mb-sm-0">
-                                        <h5 class="card-title fw-semibold">Genel Çizelge</h5>
+                                        <h5 class="card-title fw-semibold" id="genel-cizelge-yazi">Genel Çizelge</h5>
                                     </div>
                                     <div>
                                         <select class="form-select">
@@ -201,10 +201,10 @@
 
                 <div class="row">
                     <div class="col-lg-8 d-flex align-items-stretch">
-                        <div class="card w-100 overflow-hidden">
+                        <div class="card w-100 overflow-hidden" id="popular-urun">
                             <div class="card-body pb-0">
-                                <h4 class="fs-4 mb-1 card-title">Popüler Ürünler</h4>
-                                <p class="mb-0 card-subtitle">En fazla işlem yapılmış ürünler aşağıda listelenir.</p>
+                                <h4 class="fs-4 mb-1 card-title" id="popular-urun-yazi">Popüler Ürünler</h4>
+                                <p class="mb-0 card-subtitle" id="popular-urun-yazi-1">En fazla işlem yapılmış ürünler aşağıda listelenir.</p>
                             </div>
                             <div data-simplebar class="position-relative">
                                 <div class="table-responsive products-tabel" data-simplebar>
@@ -266,34 +266,19 @@
                     </div>
                     <div class="col-lg-4 d-flex align-items-stretch">
                         <div class="card w-100">
-                            <div class="card-body">
+                            <div class="card-body" id="genel-rapor">
                                 <div class="d-flex mb-3 justify-content-between align-items-center">
-                                    <h4 class="mb-0 card-title">Genel Rapor</h4>
-                                    <!-- <div class="dropdown">
-                                          <button id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                            class="rounded-circle btn-transparent rounded-circle btn-sm px-1 btn shadow-none">
-                                            <i class="ti ti-dots-vertical fs-6"></i>
-                                          </button>
-                                          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
-                                            <li><a class="dropdown-item" href="javascript:void(0)">Action</a></li>
-                                            <li>
-                                              <a class="dropdown-item" href="javascript:void(0)">Another action</a>
-                                            </li>
-                                            <li>
-                                              <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
-                                            </li>
-                                          </ul>
-                                        </div> -->
+                                    <h4 class="mb-0 card-title" id="genel-rapor-yazi">Genel Rapor</h4>
                                 </div>
                                 <ul class="list-unstyled mb-0">
                                     <li class="d-flex align-items-center justify-content-between py-10 border-bottom">
                                         <div class="d-flex align-items-center">
                                             <div
                                                 class="rounded-circle-shape bg-primary-subtle me-3 rounded-pill d-inline-flex align-items-center justify-content-center">
-                                                <iconify-icon icon="solar:card-2-outline"></iconify-icon>
+                                                <iconify-icon class="fs-7 text-primary" icon="solar:card-outline" width="18" height="18"  style="color: black"></iconify-icon>
                                             </div>
                                             <div>
-                                                <h6 class="mb-1 fs-3">Stok Kartı Sayısı</h6>
+                                                <h6 class="mb-1 fs-3" id="stok-karti-sayisi">Stok Kartı Sayısı</h6>
                                             </div>
                                         </div>
                                         <span
@@ -309,7 +294,7 @@
                                                     class="fs-7 text-danger"></iconify-icon>
                                             </div>
                                             <div>
-                                                <h6 class="mb-1 fs-3">Girişi Yapılmış Ürün Sayısı</h6>
+                                                <h6 class="mb-1 fs-3" id="genel-rapor-2">Girişi Yapılmış Ürün Sayısı</h6>
                                             </div>
                                         </div>
                                         <span
@@ -325,7 +310,7 @@
                                                     class="fs-7 text-secondary"></iconify-icon>
                                             </div>
                                             <div>
-                                                <h6 class="mb-1 fs-3">Çıkışı Yapılmış Ürün Sayısı</h6>
+                                                <h6 class="mb-1 fs-3" id="genel-rapor-3">Çıkışı Yapılmış Ürün Sayısı</h6>
                                             </div>
                                         </div>
                                         <span

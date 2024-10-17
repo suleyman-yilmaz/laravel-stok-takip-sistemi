@@ -5654,6 +5654,10 @@ textarea.form-control-lg {
           flex: 1 1 auto;
   padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
   color: var(--bs-card-color);
+
+    border-radius: 20px; /* Örnek değer */
+    overflow: hidden; /* Bu kuralın eklenmesi gerekebilir */
+
 }
 
 .card-title {

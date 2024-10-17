@@ -68,6 +68,8 @@
             /* Simge boyutunu ayarlamak için */
         }
     </style>
+
+    @yield('styles')
 </head>
 
 <body>
