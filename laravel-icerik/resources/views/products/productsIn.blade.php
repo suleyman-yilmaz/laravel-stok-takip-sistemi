@@ -210,7 +210,8 @@
                                                                         aria-expanded="false">
                                                                         <i class="ti ti-dots-vertical fs-6"></i>
                                                                     </a>
-                                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                    <ul class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton">
                                                                         <li>
                                                                             <a class="dropdown-item d-flex align-items-center gap-3"
                                                                                 href=""><i

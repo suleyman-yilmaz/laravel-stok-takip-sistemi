@@ -31,8 +31,7 @@
                                         <label for="exampleInputPassword1" class="form-label">Şifre</label>
                                         <input type="password" class="form-control" id="exampleInputPassword1">
                                     </div>
-                                    <a href="/login"
-                                        class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Üye ol</a>
+                                    <a href="/login" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Üye ol</a>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="fs-4 mb-0 fw-bold">Zaten bir hesabın var mı?</p>
                                         <a class="text-primary fw-bold ms-2" href="/login">Giriş
