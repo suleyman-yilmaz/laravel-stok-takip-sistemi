@@ -15,26 +15,32 @@
                             <div class="card-body">
                                 <!-- Logo yerine Stok Takip Sistemi başlığı -->
                                 <h1 class="title-text">Stok Takip Sistemi</h1>
-                                <!-- <p class="text-center">Your Social Campaigns</p> -->
-                                <form>
+                                <form action="{{ route('register') }}" method="POST">
+                                    @csrf
                                     <div class="mb-3">
                                         <label for="exampleInputtext1" class="form-label">İsim</label>
                                         <input type="text" class="form-control" id="exampleInputtext1"
-                                            aria-describedby="textHelp">
+                                            name="name" aria-describedby="textHelp"> <!-- Name attribute added -->
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">E-Mail</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp">
+                                            name="email" aria-describedby="emailHelp"> <!-- Name attribute added -->
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Şifre</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                            name="password"> <!-- Name attribute added -->
                                     </div>
-                                    <a href="/login" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Üye ol</a>
+                                    <div class="mb-4">
+                                        <label for="exampleInputPasswordConfirm" class="form-label">Şifre (Tekrar)</label>
+                                        <input type="password" class="form-control" id="exampleInputPasswordConfirm"
+                                            name="password_confirmation"> <!-- Name attribute added -->
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Üye ol</button>
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="fs-4 mb-0 fw-bold">Zaten bir hesabın var mı?</p>
-                                        <a class="text-primary fw-bold ms-2" href="/login">Giriş
+                                        <a class="text-primary fw-bold ms-2" href="{{ route('login') }}">Giriş
                                             yap</a>
                                     </div>
                                 </form>

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stok Takip Sistemi | @yield('title')</title>
     {{-- favicon --}}
-    <link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon-32x32.png" />
     {{-- css --}}
     <link rel="stylesheet" href="/assets/css/styles.min.css" />
     {{-- script --}}

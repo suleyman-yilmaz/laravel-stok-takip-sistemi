@@ -18,21 +18,20 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card" style="background-color: #f5f5f5;">
-                                <form action="">
+                                <form action="{{ route('stock.cards.store') }}" method="POST">
+                                    @csrf
                                     <div class="px-4 py-3 border-bottom d-flex justify-content-between align-items-center">
                                         <h4 class="card-title mb-0">Stok Kartı Girişi</h4>
-                                        <button class="btn btn-secondary" type="button" id="generateBarcode">Barkod No
-                                            Oluştur</button>
                                     </div>
 
                                     <div class="card-body">
                                         <div class="mb-4 row align-items-center">
-                                            <label for="exampleInputText1" class="form-label col-sm-3 col-form-label">Barkod
+                                            {{-- <label for="exampleInputText1" class="form-label col-sm-3 col-form-label">Barkod
                                                 No</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="exampleInputText1"
-                                                    placeholder="" required>
-                                            </div>
+                                                    placeholder="" name="id" required>
+                                            </div> --}}
                                         </div>
 
                                         <div class="mb-4 row align-items-center">
@@ -40,7 +39,7 @@
                                                 Adı</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="exampleInputText2"
-                                                    placeholder="" required>
+                                                    placeholder="" name="product_name" required>
                                             </div>
                                         </div>
 
@@ -49,7 +48,7 @@
                                                 class="form-label col-sm-3 col-form-label">Birimi</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="exampleInputText2"
-                                                    placeholder="" required>
+                                                    placeholder="" name="unit" required>
                                             </div>
                                         </div>
 
@@ -83,19 +82,12 @@
                                                 <a class="fs-6 text-muted" href="javascript:void(0)"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
                                                     data-bs-title="Filter list">
-                                                    <i class="ti ti-filter"></i>
                                                 </a>
                                             </div>
                                             <div class="table-responsive border rounded">
                                                 <table class="table align-middle text-nowrap mb-0">
                                                     <thead>
                                                         <tr>
-                                                            <th scope="col">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="" id="flexCheckDefault">
-                                                                </div>
-                                                            </th>
                                                             <th scope="col">Barkod No</th>
                                                             <th scope="col">Ürün Adı</th>
                                                             <th scope="col">Birimi</th>
@@ -103,53 +95,65 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-check mb-0">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        value="" id="flexCheckDefault1">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="ms-3">
-                                                                        <h6 class="fw-semibold mb-0 fs-4">1
-                                                                        </h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <p class="mb-0">Test Ürün</p>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <p class="mb-0 ms-2">AD</p>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="dropdown dropstart">
-                                                                    <a href="javascript:void(0)" class="text-muted"
-                                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                        <i class="ti ti-dots-vertical fs-6"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuButton">
-                                                                        <li>
-                                                                            <a class="dropdown-item d-flex align-items-center gap-3"
-                                                                                href=""><i
-                                                                                    class="fs-4 ti ti-edit"></i>Düzenle</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item d-flex align-items-center gap-3"
-                                                                                href=""><i
-                                                                                    class="fs-4 ti ti-trash"></i>Sil</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        @if ($stockCards->isEmpty())
+                                                            <tr>
+                                                                <td colspan="4" class="text-center">Kayıt yok</td>
+                                                            </tr>
+                                                        @else
+                                                            @foreach ($stockCards as $stockCard)
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="ms-3">
+                                                                                <h6 class="fw-semibold mb-0 fs-4">
+                                                                                    {{ $stockCard->id }}
+                                                                                </h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h6 class="mb-0">{{ $stockCard->product_name }}</h6>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h6 class="mb-0 ms-2">{{ $stockCard->unit }}</h6>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="dropdown dropstart">
+                                                                            <a href="javascript:void(0)" class="text-muted"
+                                                                               id="dropdownMenuButton{{ $stockCard->id }}"
+                                                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                <i class="ti ti-dots-vertical fs-6"></i>
+                                                                            </a>
+                                                                            <ul class="dropdown-menu"
+                                                                                aria-labelledby="dropdownMenuButton{{ $stockCard->id }}">
+                                                                                <li>
+                                                                                    <a class="dropdown-item d-flex align-items-center gap-3"
+                                                                                       href="{{ route('stock.cards.edit', $stockCard->id) }}">
+                                                                                        <i class="fs-4 ti ti-edit"></i>Düzenle</a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <form
+                                                                                        action="{{ route('stock.cards.destroy', $stockCard->id) }}"
+                                                                                        method="POST"
+                                                                                        onsubmit="return confirm('Silmek istediğinize emin misiniz?');">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit"
+                                                                                                class="dropdown-item d-flex align-items-center gap-3">
+                                                                                            <i class="fs-4 ti ti-trash"></i>Sil
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
                                                     </tbody>
+                                                    
                                                 </table>
                                                 <div class="d-flex align-items-center justify-content-end py-1">
                                                     <p class="mb-0 fs-2">Rows per page:</p>

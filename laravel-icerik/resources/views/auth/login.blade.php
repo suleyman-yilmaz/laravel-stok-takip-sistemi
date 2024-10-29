@@ -16,31 +16,23 @@
                                 <!-- Logo yerine Stok Takip Sistemi başlığı -->
                                 <h1 class="title-text">Stok Takip Sistemi</h1>
                                 <!-- <p class="text-center">Your Social Campaigns</p> -->
-                                <form>
+                                <form action="{{ route('login') }}" method="POST">
+                                    @csrf
                                     <div class="mb-3">
-                                        <label for="exampleInputEmail1" class="form-label">E-Mail</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp">
+                                        <label for="email" class="form-label">E-Mail</label>
+                                        <input type="email" name="email" class="form-control" id="email"
+                                            aria-describedby="emailHelp" required>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="exampleInputPassword1" class="form-label">Şifre</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1">
+                                        <label for="password" class="form-label">Şifre</label>
+                                        <input type="password" name="password" class="form-control" id="password" required>
                                     </div>
-                                    <div class="d-flex align-items-center justify-content-between mb-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input primary" type="checkbox" value=""
-                                                id="flexCheckChecked" checked>
-                                            <label class="form-check-label text-dark" for="flexCheckChecked">
-                                                Bu cihazı hatırla
-                                            </label>
-                                        </div>
-                                        <a class="text-primary fw-bold" href="./index.html">Şifremi unuttum</a>
-                                    </div>
-                                    <a href="/dashboard" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Giriş
-                                        Yap</a>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Giriş
+                                        Yap</button>
+
                                     <div class="d-flex align-items-center justify-content-center">
                                         <p class="fs-4 mb-0 fw-bold">Üye olmak istiyorum</p>
-                                        <a class="text-primary fw-bold ms-2" href="/register">Hesap
+                                        <a class="text-primary fw-bold ms-2" href="{{ route('register') }}">Hesap
                                             oluştur</a>
                                     </div>
                                 </form>
