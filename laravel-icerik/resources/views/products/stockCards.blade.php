@@ -26,12 +26,13 @@
 
                                     <div class="card-body">
                                         <div class="mb-4 row align-items-center">
-                                            {{-- <label for="exampleInputText1" class="form-label col-sm-3 col-form-label">Barkod
-                                                No</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="exampleInputText1"
-                                                    placeholder="" name="id" required>
-                                            </div> --}}
+                                            {{-- <label for="exampleInputText1"
+                                            class="form-label col-sm-3 col-form-label">Barkod
+                                            No</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="exampleInputText1"
+                                                placeholder="" name="id" required>
+                                        </div> --}}
                                         </div>
 
                                         <div class="mb-4 row align-items-center">
@@ -58,7 +59,7 @@
                                                 <div class="d-flex align-items-center gap-6">
                                                     <button class="btn btn-primary" type="submit">Stok Kartı
                                                         Oluştur</button>
-                                                    <a href="/stock/cards" class="btn bg-danger-subtle text-danger">İptal
+                                                    <a href="{{route('stock.cards.index')}}" class="btn bg-danger-subtle text-danger">İptal
                                                         et</a>
                                                 </div>
                                             </div>
@@ -112,26 +113,32 @@
                                                                         </div>
                                                                     </td>
                                                                     <td>
-                                                                        <h6 class="mb-0">{{ $stockCard->product_name }}</h6>
+                                                                        <h6 class="mb-0">
+                                                                            {{ $stockCard->product_name }}
+                                                                        </h6>
                                                                     </td>
                                                                     <td>
                                                                         <div class="d-flex align-items-center">
-                                                                            <h6 class="mb-0 ms-2">{{ $stockCard->unit }}</h6>
+                                                                            <h6 class="mb-0 ms-2">
+                                                                                {{ $stockCard->unit }}
+                                                                            </h6>
                                                                         </div>
                                                                     </td>
                                                                     <td>
                                                                         <div class="dropdown dropstart">
                                                                             <a href="javascript:void(0)" class="text-muted"
-                                                                               id="dropdownMenuButton{{ $stockCard->id }}"
-                                                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                                                id="dropdownMenuButton{{ $stockCard->id }}"
+                                                                                data-bs-toggle="dropdown"
+                                                                                aria-expanded="false">
                                                                                 <i class="ti ti-dots-vertical fs-6"></i>
                                                                             </a>
                                                                             <ul class="dropdown-menu"
                                                                                 aria-labelledby="dropdownMenuButton{{ $stockCard->id }}">
                                                                                 <li>
                                                                                     <a class="dropdown-item d-flex align-items-center gap-3"
-                                                                                       href="{{ route('stock.cards.edit', $stockCard->id) }}">
-                                                                                        <i class="fs-4 ti ti-edit"></i>Düzenle</a>
+                                                                                        href="{{ route('stock.cards.edit', $stockCard->id) }}">
+                                                                                        <i
+                                                                                            class="fs-4 ti ti-edit"></i>Düzenle</a>
                                                                                 </li>
                                                                                 <li>
                                                                                     <form
@@ -141,8 +148,9 @@
                                                                                         @csrf
                                                                                         @method('DELETE')
                                                                                         <button type="submit"
-                                                                                                class="dropdown-item d-flex align-items-center gap-3">
-                                                                                            <i class="fs-4 ti ti-trash"></i>Sil
+                                                                                            class="dropdown-item d-flex align-items-center gap-3">
+                                                                                            <i
+                                                                                                class="fs-4 ti ti-trash"></i>Sil
                                                                                         </button>
                                                                                     </form>
                                                                                 </li>
@@ -153,7 +161,7 @@
                                                             @endforeach
                                                         @endif
                                                     </tbody>
-                                                    
+
                                                 </table>
                                                 <div class="d-flex align-items-center justify-content-end py-1">
                                                     <p class="mb-0 fs-2">Rows per page:</p>

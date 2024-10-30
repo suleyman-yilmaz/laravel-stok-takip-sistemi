@@ -18,7 +18,8 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="card" style="background-color: #f5f5f5;">
-                                <form action="">
+                                <form action="{{ route('products.out.store') }}" method="POST">
+                                    @csrf
                                     <div class="px-4 py-3 border-bottom">
                                         <h4 class="card-title mb-0">Ürün Çıkışı</h4>
                                     </div>
@@ -28,34 +29,35 @@
                                                 Adı</label>
                                             <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="exampleInputText1"
-                                                    placeholder="" required>
+                                                    placeholder="" name="stock_cards_id" required>
                                             </div>
                                         </div>
 
                                         <div class="mb-4 row align-items-center">
-                                            <label for="exampleInputText2" class="form-label col-sm-3 col-form-label">Çıkış
+                                            <label for="output_amount" class="form-label col-sm-3 col-form-label">Çıkış
                                                 Miktarı</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="exampleInputText2"
-                                                    placeholder="" required>
+                                                <input type="text" class="form-control" id="output_amount" placeholder=""
+                                                    name="output_amount" required
+                                                    oninput="validateInput(this); updateTotal()">
                                             </div>
                                         </div>
 
                                         <div class="mb-4 row align-items-center">
-                                            <label for="exampleInputText2" class="form-label col-sm-3 col-form-label">Çıkış
+                                            <label for="output_price" class="form-label col-sm-3 col-form-label">Çıkış
                                                 Fiyatı</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="exampleInputText2"
-                                                    placeholder="" required>
+                                                <input type="text" class="form-control" id="output_price" placeholder=""
+                                                    name="output_price" required oninput="updateTotal()">
                                             </div>
                                         </div>
 
                                         <div class="mb-4 row align-items-center">
-                                            <label for="exampleInputText2" class="form-label col-sm-3 col-form-label">Toplam
+                                            <label for="total_amount" class="form-label col-sm-3 col-form-label">Toplam
                                                 Tutar</label>
                                             <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="exampleInputText2"
-                                                    placeholder="" required>
+                                                <input type="text" class="form-control" id="total_amount" placeholder=""
+                                                    name="total_amount" required readonly>
                                             </div>
                                         </div>
 
@@ -64,43 +66,34 @@
                                                 Tarihi</label>
                                             <div class="col-sm-9">
                                                 <div class="input-group">
-                                                    <input id="startDate" class="form-control" type="date" required>
-                                                    <script>
-                                                        // Sayfa yüklendiğinde bugünün tarihini input alanına yerleştirir
-                                                        document.addEventListener('DOMContentLoaded', function() {
-                                                            var today = new Date();
-                                                            var day = String(today.getDate()).padStart(2, '0');
-                                                            var month = String(today.getMonth() + 1).padStart(2, '0'); // Ocak ayı 0 olarak kabul edildiği için +1
-                                                            var year = today.getFullYear();
-                                                            var currentDate = year + '-' + month + '-' + day;
-                                                            document.getElementById('startDate').value = currentDate;
-                                                        });
-                                                    </script>
+                                                    <input id="startDate" class="form-control" type="date"
+                                                        name="output_date" required>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="mb-4 row align-items-center">
-                                            <label for="exampleInputText29"
+                                            <label for="description"
                                                 class="form-label col-sm-3 col-form-label">Açıklama</label>
                                             <div class="col-sm-9">
-                                                <textarea class="form-control p-7" name="" id="exampleInputText29" cols="20" rows="1" placeholder=""
-                                                    required></textarea>
+                                                <input type="text" class="form-control" id="description" placeholder=""
+                                                    name="description" required>
                                             </div>
                                         </div>
+
                                         <div class="row">
                                             <div class="col-sm-3"></div>
                                             <div class="col-sm-9">
                                                 <div class="d-flex align-items-center gap-6">
                                                     <button class="btn btn-primary" type="submit">Çıkış Yap</button>
-                                                    <a href="/products/out" class="btn bg-danger-subtle text-danger">İptal
+                                                    <a href="{{route('products.out.index')}}" class="btn bg-danger-subtle text-danger">İptal
                                                         et</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </form>
                             </div>
-                            </form>
                         </div>
                         <div class="col-lg-6">
                             <div class="card">
@@ -163,70 +156,106 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <div class="ms-3">
-                                                                        <h6 class="fw-semibold mb-0 fs-4">1
+                                                        @if ($productsOut->isEmpty())
+                                                            <tr>
+                                                                <td colspan="9" class="text-center">Kayıt yok</td>
+                                                            </tr>
+                                                        @else
+                                                            @foreach ($productsOut as $productOut)
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <div class="ms-3">
+                                                                                <h6 class="fw-semibold mb-0 fs-4">
+                                                                                    {{ $productOut->stock_cards_id }}
+                                                                                </h6>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <h6 class="mb-0">
+                                                                            {{ $stockCards->where('id', $productOut->stock_cards_id)->first()->product_name ?? 'Ürün Bulunamadı' }}
                                                                         </h6>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="mb-0">Test Ürün</h6>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <h6 class="mb-0 fs-4">75</h6>
-                                                                </div>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <h6 class="mb-0 ms-2">AD</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <h6 class="mb-0 ms-2">100.00</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <h6 class="mb-0 ms-2">7500.00</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <h6 class="mb-0 ms-2">2024-10-10</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="d-flex align-items-center">
-                                                                    <h6 class="mb-0 ms-2">Firma</h6>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="dropdown dropstart">
-                                                                    <a href="javascript:void(0)" class="text-muted"
-                                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                                        aria-expanded="false">
-                                                                        <i class="ti ti-dots-vertical fs-6"></i>
-                                                                    </a>
-                                                                    <ul class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuButton">
-                                                                        <li>
-                                                                            <a class="dropdown-item d-flex align-items-center gap-3"
-                                                                                href=""><i
-                                                                                    class="fs-4 ti ti-edit"></i>Düzenle</a>
-                                                                        </li>
-                                                                        <li>
-                                                                            <a class="dropdown-item d-flex align-items-center gap-3"
-                                                                                href=""><i
-                                                                                    class="fs-4 ti ti-trash"></i>Sil</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h6 class="mb-0 fs-4">
+                                                                                {{ $productOut->output_amount }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h6 class="mb-0 ms-2">
+                                                                                {{ $stockCards->where('id', $productOut->stock_cards_id)->first()->unit ?? 'Ürün Bulunamadı' }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h6 class="mb-0 ms-2">
+                                                                                {{ $productOut->output_price }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h6 class="mb-0 ms-2">
+                                                                                {{ $productOut->total_amount }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h6 class="mb-0 ms-2">
+                                                                                {{ $productOut->output_date }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex align-items-center">
+                                                                            <h6 class="mb-0 ms-2">
+                                                                                {{ $productOut->description }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="dropdown dropstart">
+                                                                            <a href="javascript:void(0)"
+                                                                                class="text-muted"
+                                                                                id="dropdownMenuButton{{ $productOut->id }}"
+                                                                                data-bs-toggle="dropdown"
+                                                                                aria-expanded="false">
+                                                                                <i class="ti ti-dots-vertical fs-6"></i>
+                                                                            </a>
+                                                                            <ul class="dropdown-menu"
+                                                                                aria-labelledby="dropdownMenuButton{{ $productOut->id }}">
+                                                                                <li>
+                                                                                    <a class="dropdown-item d-flex align-items-center gap-3"
+                                                                                        href="#">
+                                                                                        <i
+                                                                                            class="fs-4 ti ti-edit"></i>Düzenle
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <form
+                                                                                        action="{{ route('products.out.destroy', $productOut->id) }}"
+                                                                                        method="POST"
+                                                                                        onsubmit="return confirm('Silmek istediğinize emin misiniz?');">
+                                                                                        @csrf
+                                                                                        @method('DELETE')
+                                                                                        <button type="submit"
+                                                                                            class="dropdown-item d-flex align-items-center gap-3">
+                                                                                            <i
+                                                                                                class="fs-4 ti ti-trash"></i>Sil
+                                                                                        </button>
+                                                                                    </form>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
                                                     </tbody>
                                                 </table>
                                                 <div class="d-flex align-items-center justify-content-end py-1">
@@ -257,17 +286,47 @@
                                                     </nav>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        // Sayfa yüklendiğinde bugünün tarihini input alanına yerleştirir
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0'); // Ocak ayı 0 olarak kabul edildiği için +1
+            var year = today.getFullYear();
+            var currentDate = year + '-' + month + '-' + day;
+            document.getElementById('startDate').value = currentDate;
+        });
+
+        function validateInput(input) {
+            // Geçerli bir tam sayı olup olmadığını kontrol et
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+
+        function updateTotal() {
+            const amount = document.getElementById('output_amount').value;
+            const price = document.getElementById('output_price').value;
+
+            // Değerleri tam sayıya dönüştür
+            const amountInt = parseInt(amount) || 0;
+            const priceFloat = parseFloat(price) || 0;
+
+            // Toplamı hesapla
+            const total = amountInt * priceFloat;
+
+            // Toplam tutarı göster
+            document.getElementById('total_amount').value = total.toFixed(2); // İki ondalık haneli olarak göster
+        }
+    </script>
 @endsection

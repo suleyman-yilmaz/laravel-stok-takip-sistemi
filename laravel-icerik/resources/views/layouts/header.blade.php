@@ -1,13 +1,3 @@
-<!--  Header Start -->
-<div class="brand-logo d-flex align-items-center justify-content-between">
-    <a href="/dashboard" class="text-nowrap logo-text">
-        Stok Takip Sistemi
-    </a>
-    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-        <i class="ti ti-x fs-8"></i>
-    </div>
-</div>
-
 <header class="app-header">
     <nav class="navbar navbar-expand-lg navbar-light">
         <ul class="navbar-nav">
@@ -24,8 +14,10 @@
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                 <!-- Dil Seçenekleri -->
                 <li class="nav-item dropdown mx-2">
-                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <iconify-icon icon="material-symbols:language" width="1.2rem" height="1.2rem" style="color: black"></iconify-icon>
+                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <iconify-icon icon="material-symbols:language" width="1.2rem" height="1.2rem"
+                            style="color: black"></iconify-icon>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
                         <li>
@@ -45,8 +37,10 @@
 
                 <!-- Mevcut profil menüsü -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                    <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35"
+                            class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
@@ -58,7 +52,8 @@
                                 <i class="ti ti-list-check fs-6"></i>
                                 <p class="fs-3">Yapılacaklar</p>
                             </a>
-                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="ti ti-logout"></i> Çıkış Yap
                             </a>
                         </div>

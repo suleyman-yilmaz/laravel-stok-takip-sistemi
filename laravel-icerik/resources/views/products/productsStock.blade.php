@@ -51,40 +51,54 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="ms-3">
-                                                                    <h6 class="fw-semibold mb-0 fs-4">1</h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <h6 class="fw-semibold mb-0 fs-4">Test Ürün</h6>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <h6 class="mb-0 ms-2">AD</h6>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <h6 class="mb-0 fs-4">75</h6>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <h6 class="mb-0 fs-4">25</h6>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <h6 class="mb-0 fs-4">50</h6>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    @if ($stockCards->isEmpty())
+                                                        <tr>
+                                                            <td colspan="6" class="text-center">Kayıt yok</td>
+                                                        </tr>
+                                                    @else
+                                                        @foreach ($stockCards as $stockCard)
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div class="ms-3">
+                                                                            <h6 class="fw-semibold mb-0 fs-4">
+                                                                                {{ $stockCard->id }}
+                                                                            </h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <h6 class="fw-semibold mb-0 fs-4">
+                                                                            {{ $stockCard->product_name }}
+                                                                        </h6>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <h6 class="mb-0 ms-2">
+                                                                            {{ $stockCard->unit }}
+                                                                        </h6>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <h6 class="mb-0 fs-4">75</h6>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <h6 class="mb-0 fs-4">25</h6>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="d-flex align-items-center">
+                                                                        <h6 class="mb-0 fs-4">50</h6>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                             <div class="d-flex align-items-center justify-content-end py-1">

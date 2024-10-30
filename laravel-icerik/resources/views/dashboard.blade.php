@@ -34,7 +34,7 @@
                                             <span>C</span>
                                         </span>
                                     </div>
-                                    <p class="fs-3 mb-0 opacity-75">Pazar 15-10-2024</p>
+                                    <p id="todayDate" class="fs-3 mb-0 opacity-75"></p>
                                 </div>
                             </div>
                         </div>
@@ -42,55 +42,8 @@
                         <div class="card-footer text-bg-white" id="hava-durumu">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="row text-center">
-                                        <div class="col-6 col-md-2 border-end">
-                                            <div class="mb-2">Pazartesi</div>
-                                            <i class="ti ti-cloud fs-9 mb-2"></i>
-                                            <div>
-                                                24°
-                                                <span>C</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-md-2 border-end">
-                                            <div class="mb-2">Salı</div>
-                                            <i class="ti ti-cloud fs-9 mb-2"></i>
-                                            <div>
-                                                21°
-                                                <span>C</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-md-2 border-end">
-                                            <div class="mb-2">Çarşamba</div>
-                                            <i class="ti ti-sun-high fs-9 mb-2"></i>
-                                            <div>
-                                                25°
-                                                <span>C</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-md-2 border-end">
-                                            <div class="mb-2">Perşembe</div>
-                                            <i class="ti ti-cloud-fog fs-9 mb-2"></i>
-                                            <div>
-                                                20°
-                                                <span>C</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-md-2 border-end">
-                                            <div class="mb-2">Cuma</div>
-                                            <i class="ti ti-cloud-storm fs-9 mb-2"></i>
-                                            <div>
-                                                18°
-                                                <span>C</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 col-md-2">
-                                            <div class="mb-2">Cumartesi</div>
-                                            <i class="ti ti-cloud-rain fs-9 mb-2"></i>
-                                            <div>
-                                                14°
-                                                <span>C</span>
-                                            </div>
-                                        </div>
+                                    <div class="row text-center" id="days-container">
+                                        <!-- Günler buraya JavaScript ile eklenecek -->
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +103,9 @@
                                             </div>
                                             <div class="row align-items-end justify-content-between">
                                                 <div class="col-5">
-                                                    <h2 class="mb-6 fs-8">4</h2>
+                                                    <h2 class="mb-6 fs-8">
+                                                        {{ $todayProductInCount > 0 ? $todayProductInCount : '0' }}
+                                                    </h2>
                                                 </div>
                                             </div>
                                         </div>
@@ -171,9 +126,8 @@
                                                     </h6>
                                                 </div>
                                                 <div class="dropdown dropstart">
-                                                    <a href="javascript:void(0)" class="text-muted"
-                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
+                                                    <a href="javascript:void(0)" class="text-muted" id="dropdownMenuButton"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
                                                         <i class="ti ti-dots-vertical fs-6"></i>
                                                     </a>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -187,7 +141,9 @@
                                             </div>
                                             <div class="row align-items-center justify-content-between pt-4">
                                                 <div class="col-5">
-                                                    <h2 class="mb-6 fs-8 text-nowrap">3</h2>
+                                                    <h2 class="mb-6 fs-8 text-nowrap">
+                                                        {{ $todayProductOutCount > 0 ? $todayProductOutCount : '0' }}
+                                                    </h2>
                                                 </div>
                                             </div>
                                         </div>
@@ -286,12 +242,12 @@
                                             <span
                                                 class="badge rounded-pill fw-medium fs-2 d-flex align-items-center bg-success-subtle text-success text-end">
                                                 <i class="">
-                                                    @if ($totalCount <= 0)
+                                                    @if ($stockCartTotalCount <= 0)
                                                         Kayıt yok
                                                     @endif
                                                 </i>
-                                                @if ($totalCount > 0)
-                                                    {{ $totalCount }}
+                                                @if ($stockCartTotalCount > 0)
+                                                    {{ $stockCartTotalCount }}
                                                 @endif
                                             </span>
                                         </li>
@@ -310,7 +266,15 @@
                                             </div>
                                             <span
                                                 class="badge rounded-pill fw-medium fs-2 d-flex align-items-center bg-success-subtle text-success text-end">
-                                                <i class="">Kayıt Yok</i></span>
+                                                <i class="">
+                                                    @if ($productInTotalCount <= 0)
+                                                        Kayıt Yok
+                                                    @endif
+                                                </i>
+                                                @if ($productInTotalCount > 0)
+                                                    {{ $productInTotalCount }}
+                                                @endif
+                                            </span>
                                         </li>
 
                                         <li class="d-flex align-items-center justify-content-between py-10 border-bottom">
@@ -327,7 +291,15 @@
                                             </div>
                                             <span
                                                 class="badge rounded-pill fw-medium fs-2 d-flex align-items-center bg-success-subtle text-success text-end">
-                                                <i class="">Kayıt Yok</i></span>
+                                                <i class="">
+                                                    @if ($productOutTotalCount <= 0)
+                                                        Kayıt Yok
+                                                    @endif
+                                                </i>
+                                                @if ($productOutTotalCount > 0)
+                                                    {{ $productOutTotalCount }}
+                                                @endif
+                                            </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -350,4 +322,46 @@
     </div>
     </div>
     </div>
+@endsection
+@section('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const daysContainer = document.getElementById("days-container");
+            const daysOfWeek = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+            const icons = ["ti ti-cloud", "ti ti-cloud", "ti ti-sun-high", "ti ti-cloud-fog", "ti ti-cloud-storm", "ti ti-cloud-rain"
+            ];
+            const temperatures = [24, 21, 25, 20, 18, 14]; // Örnek sıcaklıklar
+
+            const today = new Date().getDay(); // Bugünün gün sırasını al
+            for (let i = 0; i < 6; i++) {
+                const dayIndex = (today + i + 1) % 7; // Haftanın günü sırasını hesapla
+                const dayName = daysOfWeek[dayIndex];
+                const icon = icons[i % icons.length];
+                const temp = temperatures[i % temperatures.length];
+
+                const dayElement = `
+            <div class="col-6 col-md-2 ${i < 5 ? 'border-end' : ''}">
+                <div class="mb-2">${dayName}</div>
+                <i class="${icon} fs-9 mb-2"></i>
+                <div>${temp}°<span>C</span></div>
+            </div>
+            `;
+                daysContainer.insertAdjacentHTML("beforeend", dayElement);
+            }
+        });
+
+
+        const days = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
+
+        const today = new Date();
+
+        const dayName = days[today.getDay()];
+        const day = String(today.getDate()).padStart(2, '0'); // Günü 2 basamaklı hale getirin
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Ayı 2 basamaklı hale getirin
+        const year = today.getFullYear();
+
+        const formattedDate = `${dayName} ${day}-${month}-${year}`;
+
+        document.getElementById("todayDate").textContent = formattedDate;
+    </script>
 @endsection

@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('products_in', function (Blueprint $table) {
             $table->id();
             $table->foreignId('stock_cards_id')->constrained()->restrictOnDelete();
-            $table->string('product_name');
             $table->integer('input_amount');
+            $table->string('entry_price');
             $table->string('total_amount');
             $table->date('input_date');
             $table->string('description')->nullable();

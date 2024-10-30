@@ -11,7 +11,6 @@ class StockCards extends Model
 
     // Atanabilir alanları belirtin
     protected $fillable = [
-        'id',
         'product_name',
         'unit',
         'status',
