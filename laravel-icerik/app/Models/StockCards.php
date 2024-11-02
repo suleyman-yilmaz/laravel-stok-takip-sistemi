@@ -17,4 +17,14 @@ class StockCards extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function productsIn()
+    {
+        return $this->hasMany(ProductsIn::class, 'stock_cards_id');
+    }
+
+    public function productsOut()
+    {
+        return $this->hasMany(ProductsOut::class, 'stock_cards_id');
+    }
 }

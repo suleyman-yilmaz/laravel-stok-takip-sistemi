@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CurrentStock;
 use Illuminate\Http\Request;
-use App\Models\StockCards;
 
 class InstantStock extends Controller
 {
@@ -12,8 +12,21 @@ class InstantStock extends Controller
      */
     public function index()
     {
-        $stockCards = StockCards::all(); // Tüm kayıtları alın
-        return view('products.productsStock', compact('stockCards')); // Görüntüle
+        $vw_anlik = CurrentStock::all(); // Tüm kayıtları alın
+        return view('products.productsStock', compact('vw_anlik')); // Görüntüle
+    }
+
+    public function searchProduct(Request $request)
+    {
+        $query = $request->query('query');
+
+        if (empty($query)) {
+            $vw_anlik = CurrentStock::all();
+        } else {
+            $vw_anlik = CurrentStock::where('product_name', 'LIKE', '%' . $query . '%')->get();
+        }
+
+        return view('products.productsStock', compact('vw_anlik'));
     }
 
     /**

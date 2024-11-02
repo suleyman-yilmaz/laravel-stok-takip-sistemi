@@ -55,16 +55,16 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{route('help.index')}}" aria-expanded="false">
-                        <iconify-icon icon="material-symbols:help"></iconify-icon>
-                        <span class="hide-menu">Yardım</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
                     <a class="sidebar-link" href="{{route('contact.index')}}" aria-expanded="false">
                         <iconify-icon icon="hugeicons:contact-02" width="1.2rem" height="1.2rem"
                             style="color: black"></iconify-icon>
-                        <span class="hide-menu">İletişim</span>
+                        <span class="hide-menu">İletişim - Destek</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{route('help.index')}}" aria-expanded="false">
+                        <iconify-icon icon="material-symbols:help"></iconify-icon>
+                        <span class="hide-menu">Yardım</span>
                     </a>
                 </li>
                 <li>

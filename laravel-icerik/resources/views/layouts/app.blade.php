@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Stok Takip Sistemi | @yield('title')</title>
     {{-- favicon --}}
-    <link rel="shortcut icon" type="image/png" href="/assets/images/logos/favicon-32x32.png" />
+    <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logos/favicon-32x32.png')}}" />
     {{-- css --}}
-    <link rel="stylesheet" href="/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="{{asset('assets/css/styles.min.css')}}" />
     {{-- script --}}
-    <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/js/sidebarmenu.js"></script>
-    <script src="/assets/js/app.min.js"></script>
-    <script src="/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="/assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="/assets/js/dashboard.js"></script>
+    <script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{asset('assets/js/sidebarmenu.js')}}"></script>
+    <script src="{{asset('assets/js/app.min.js')}}"></script>
+    <script src="{{asset('assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
+    <script src="{{asset('assets/libs/simplebar/dist/simplebar.js')}}"></script>
+    <script src="{{asset('assets/js/dashboard.js')}}"></script>
 
     <!-- solar icons -->
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script src="{{asset('assets/js/iconify-icon.min.js')}}"></script>
 
     <style>
         .logo-text {
@@ -30,23 +30,6 @@
             /* İstediğiniz renk */
             text-decoration: none;
             /* Alt çizgiyi kaldırmak için */
-        }
-
-        .title-text {
-            font-size: 48px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* İframe stil ayarları */
-        #map {
-            height: 400px;
-            /* Harita yüksekliği */
-            width: 100%;
-            /* Harita genişliği */
-            border: none;
-            /* Kenarlık yok */
         }
 
         .dropdown-item {

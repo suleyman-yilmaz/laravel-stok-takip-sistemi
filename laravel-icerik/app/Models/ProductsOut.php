@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductsOut extends Model
 {
-    protected $table = 'products_out';
+    protected $table = 'vw_products_out';
 
     protected $fillable = [
         'stock_cards_id',

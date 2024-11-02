@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductsIn extends Model
 {
-    protected $table = 'products_in';
+    protected $table = 'view_products_in';
 
     protected $fillable = [
         'stock_cards_id',

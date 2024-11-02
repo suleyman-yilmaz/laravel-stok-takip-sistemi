@@ -6,7 +6,7 @@ use App\Models\ProductsIn;
 use App\Models\ProductsOut;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\StockCards;
+
 
 class UserControlelr extends Controller
 {
@@ -16,17 +16,11 @@ class UserControlelr extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $userName = Auth::user()->name; // Oturum açmış kullanıcının adı
-            $stockCartTotalCount = StockCards::count(); // Toplam stok kartı sayısını al
-            $productInTotalCount = ProductsIn::count(); // Toplam girişi yapılmış ürün sayısını al
-            $productOutTotalCount = ProductsOut::count(); // Toplam çıkışı yapılmış ürün sayısını al
-            $todayProductInCount = ProductsIn::whereDate('input_date', date('Y-m-d'))->count(); // Bugün girişi yapılmış ürün sayısını al
-            $todayProductOutCount = ProductsOut::whereDate('output_date', date('Y-m-d'))->count(); // Bugün çıkışı yapılmış ürün sayısını al
-            return view('dashboard', compact('userName', 'stockCartTotalCount', 'productInTotalCount', 'productOutTotalCount', 'todayProductInCount', 'todayProductOutCount')); // Kullanıcı adını görünüme gönderin
+            $userName = Auth::user()->name;
+            $totalEntryPrice = ProductsIn::sum('total_amount');
+            $totalOutputPrice = ProductsOut::sum('total_amount');
+            return view('auth.profile', compact('userName', 'totalEntryPrice', 'totalOutputPrice'));
         }
-
-        // Eğer kullanıcı oturum açmamışsa, başka bir sayfaya yönlendirin
-        return redirect('/login');
     }
 
     /**

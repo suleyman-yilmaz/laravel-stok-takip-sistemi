@@ -46,13 +46,12 @@ class StockCardsController extends Controller
     public function edit(string $id)
     {
         $stockCard = StockCards::findOrFail($id); // Kartı bul
-        return view('products.stockCards', compact('stockCard')); // Düzenleme formunu göster
+        return view('edit.stockCardEdit', compact('stockCard')); // Düzenleme formunu göster
     }
 
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'barcode' => 'required|string|max:255',
             'product_name' => 'required|string|max:255',
             'unit' => 'required|string|max:100',
         ]);
@@ -65,7 +64,35 @@ class StockCardsController extends Controller
     public function destroy(string $id)
     {
         $stockCard = StockCards::findOrFail($id); // Kartı bul
+
+        // Kayıtları kontrol et
+        $hasProductsIn = $stockCard->productsIn()->exists();
+        $hasProductsOut = $stockCard->productsOut()->exists();
+
+        // Uygun mesajı belirle
+        if ($hasProductsIn && $hasProductsOut) {
+            return redirect()->route('stock.cards.index')->with('warning', 'Bu ürüne ait giren ve çıkan kayıtlar bulunuyor. Silme işlemi gerçekleştirilemez.');
+        } elseif ($hasProductsIn) {
+            return redirect()->route('stock.cards.index')->with('warning', 'Bu ürüne ait giren kayıtlar bulunuyor. Silme işlemi gerçekleştirilemez.');
+        } elseif ($hasProductsOut) {
+            return redirect()->route('stock.cards.index')->with('warning', 'Bu ürüne ait çıkan kayıtlar bulunuyor. Silme işlemi gerçekleştirilemez.');
+        }
+
         $stockCard->delete(); // Sil
         return redirect()->route('stock.cards.index')->with('success', 'Stok kartı başarıyla silindi.');
     }
+
+    public function searchProduct(Request $request)
+    {
+        $query = $request->query('query');
+
+        if (empty($query)) {
+            $stockCards = StockCards::all();
+        } else {
+            $stockCards = StockCards::where('product_name', 'LIKE', '%' . $query . '%')->get();
+        }
+
+        return view('products.stockCards', compact('stockCards'));
+    }
+
 }

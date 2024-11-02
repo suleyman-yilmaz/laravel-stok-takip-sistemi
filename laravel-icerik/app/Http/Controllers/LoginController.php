@@ -9,18 +9,25 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
+        // Doğrulama kuralları
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($request->only('email', 'password'))) {
+        // Kullanıcıyı doğrulama
+        $credentials = $request->only('email', 'password');
+
+        // Şifre ve e-posta ile giriş denemesi
+        if (Auth::attempt($credentials)) {
+            // Oturum yenile
             $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+            return redirect()->intended('dashboard')->with('success', 'Giriş başarılı.');
         }
 
+        // Şifre yanlışsa özel hata mesajı döndür
         return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
+            'email' => 'E-posta veya şifre yanlış. Lütfen tekrar deneyin.',
         ]);
     }
 
@@ -30,7 +37,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/') - with('success', 'Çıkış başarılı.');
     }
 
 }
