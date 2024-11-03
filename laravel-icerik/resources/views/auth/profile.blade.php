@@ -49,16 +49,9 @@
                         <div class="col-lg-4 order-lg-1 order-2">
                             <div class="d-flex align-items-center justify-content-around m-4">
                                 <div class="text-center">
-                                    <i class="fa-solid fa-arrow-trend-up fs-6 d-block mb-2"></i>
-                                    <!-- Para Girişi için grafik simgesi -->
-                                    <h4 class="mb-0 fw-semibold lh-1">{{$totalOutputPrice}}₺</h4>
-                                    <p class="mb-0 ">Para Girişi</p>
-                                </div>
-                                <div class="text-center">
-                                    <i class="fa-solid fa-arrow-trend-down fs-6 d-block mb-2"></i>
-                                    <!-- Para Çıkışı için çubuk grafik simgesi -->
-                                    <h4 class="mb-0 fw-semibold lh-1">{{ $totalEntryPrice }}₺</h4>
-                                    <p class="mb-0 ">Para Çıkışı</p>
+                                    <h4 class="mb-0 fw-semibold lh-1">
+                                        {{$email}}
+                                    </h4>
                                 </div>
                             </div>
                         </div>
@@ -96,12 +89,14 @@
                                 </li>
                                 <li>
                                     <a class="btn btn-danger d-flex align-items-center justify-content-center p-2 fs-4 rounded-circle"
-                                        href="https://www.instagram.com/iamsuleymanymz/" target="_blank">
-                                        <i class="ti ti-brand-instagram"></i>
+                                        href="mailto:suleymanymz50@gmail.com" target="_blank">
+                                        <i class="ti ti-brand-gmail"></i>
                                     </a>
                                 </li>
                                 <li>
-                                    <button class="btn btn-primary text-nowrap">Profili Düzenle</button>
+                                    <a href="{{ route('profile.update') }}" class="btn btn-primary text-nowarp">
+                                        Profili Düzenle
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -121,45 +116,26 @@
                                     <h4 class="mb-3">Sistem Hakkında</h4>
                                     <p class="card-subtitle">
                                         Merhaba <strong style="color: black">{{$userName}},</strong><br>
-                                        Stok Takip Sistemi, işletmelerin stok yönetimini kolaylaştırmak amacıyla
-                                        tasarlanmış kapsamlı bir çözüm sunar. Sistem, ürünlerin giriş ve çıkış
-                                        işlemlerini kolayca yönetmenizi sağlar ve her bir işlem, stok kartınıza ait ürün
-                                        giriş ve çıkışları ile ilişkilendirilerek ürünlerin takibini anlık olarak
-                                        sürdürmenize imkan tanır.
+                                        {{$aboutDescription1->description}}
                                     </p>
                                     <p class="card-subtitle mt-3">
-                                        <strong>Ana Özellikler:</strong>
+                                        <strong>{{$aboutTitle1->title}}</strong>
                                     </p>
                                     <ul class="card-subtitle">
                                         <li>
-                                            <strong>Stok Kartı Yönetimi:</strong> Her bir ürün için detaylı stok kartı
-                                            tanımlayabilir ve ürün bilgilerini kaydedebilirsiniz. Bu sayede, tüm
-                                            ürünlerin güncel bilgilerini sistem üzerinde düzenli olarak takip
-                                            edebilirsiniz.
+                                            <strong>{{$aboutTitle2->title}}</strong> {{$aboutDescription2->description}}
                                         </li><br>
                                         <li>
-                                            <strong>Ürün Girişi ve Çıkışı:</strong> Ürünlerin giriş ve çıkış işlemleri
-                                            stok kartları üzerinden kolayca gerçekleştirilebilir. Ürün giriş ve
-                                            çıkışları, stok kartınıza ait ürün giriş ve çıkışları ile sistemde kayıt
-                                            altına alınır, böylece işlemler güvenilir ve izlenebilir olur.
+                                            <strong>{{$aboutTitle3->title}}</strong> {{$aboutDescription3->description}}
                                         </li><br>
                                         <li>
-                                            <strong>Anlık Stok Takibi:</strong> Her ürün için yapılan tüm giriş ve çıkış
-                                            işlemleri kayıt altına alınarak anlık stok durumu güncellenir. Sistem,
-                                            ürünlerden mevcutta kaç adet olduğunu gösterir ve bu sayede ihtiyaç
-                                            duyduğunuz bilgilere anında ulaşmanızı sağlar.
+                                            <strong>{{$aboutTitle4->title}}</strong> {{$aboutDescription4->description}}
                                         </li><br>
                                         <li>
-                                            <strong>İletişim Destek:</strong> Destek talepleriniz için iletişim destek
-                                            modülünü kullanabilirsiniz. Bu modül, forum tabanlı mail servisi ile çalışan
-                                            bir destek sistemi sunar; böylece, karşılaştığınız sorunlar veya aklınıza
-                                            takılan sorular için hızlı destek alabilirsiniz.
+                                            <strong>{{$aboutTitle5->title}}</strong> {{$aboutDescription5->description}}
                                         </li><br>
                                         <li>
-                                            <strong>Yardım ve Eğitim Videoları:</strong> Sistemin kullanımıyla ilgili
-                                            bilgilendirici videolar sayesinde tüm işlemleri öğrenebilir, kolayca
-                                            uygulayabilirsiniz. Bu içerikler, sistemin etkin kullanımını destekleyerek
-                                            iş süreçlerinizi hızlandırır.
+                                            <strong>{{$aboutTitle6->title}}</strong> {{$aboutDescription6->description}}
                                         </li>
                                     </ul>
                                     <div class="vstack gap-3 mt-4">
@@ -173,12 +149,12 @@
                                                 <h6 class="mb-0">suleymanymz50@gmail.com</h6>
                                             </a>
                                         </div>
-                                        <div class="hstack gap-6">
+                                        {{-- <div class="hstack gap-6">
                                             <i class="ti ti-device-desktop text-dark fs-6"></i>
                                             <a href="https://suleyman-yilmaz-portfolio.vercel.app/" target="_blank">
                                                 <h6 class="mb-0">suleyman-yilmaz-portfolio.vercel.app</h6>
                                             </a>
-                                        </div>
+                                        </div> --}}
                                         <div class="hstack gap-6">
                                             <i class="ti ti-map-pin text-dark fs-6"></i>
                                             <a href="https://maps.app.goo.gl/wHbyN6D4UHQ7CxRc7" target="_blank">
@@ -194,14 +170,7 @@
                 </div>
             </div>
         </div>
-        <div class="py-6 px-6 text-center">
-            <p class="mb-0 fs-4">Developed by <a href="https://suleyman-yilmaz-portfolio.vercel.app/" target="_blank"
-                    class="pe-1 text-primary text-decoration-underline">Süleyman Yılmaz</a>
-            </p>
-            <p class="mb-0 fs-4">Design by <a href="https://www.wrappixel.com/" target="_blank"
-                    class="pe-1 text-primary text-decoration-underline">Wrappixel.com</a>
-            </p>
-        </div>
+        @include('layouts.footer')
     </div>
 </div>
 

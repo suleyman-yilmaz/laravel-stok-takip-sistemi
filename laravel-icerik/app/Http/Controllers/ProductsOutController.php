@@ -12,11 +12,16 @@ class ProductsOutController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productsOut = ProductsOut::all(); // Tüm kayıtları alın
-        $stockCards = StockCards::all(); // Tüm kayıtları alın
-        return view('products.productsOut', compact('productsOut', 'stockCards')); // Görüntüle
+        // Sayfa başına gösterilecek satır sayısını al
+        $perPage = $request->get('per_page', 10); // Varsayılan olarak 5 satır göster
+
+        // Sayfalandırmayı uygulayın
+        $productsOut = ProductsOut::paginate($perPage);
+        $stockCards = StockCards::all(); // Tüm kayıtları alın (eğer gerekliyse)
+
+        return view('products.productsOut', compact('productsOut', 'stockCards'));
     }
 
     /**
@@ -113,6 +118,9 @@ class ProductsOutController extends Controller
     {
         $query = $request->query('query');
 
+        // Sayfa başına gösterilecek sonuç sayısını al, varsayılan olarak 5 ayarla
+        $perPage = $request->get('per_page', 9999999999999999);
+
         // Tüm kayıtları view_products_out ve stock_cards tablosunu birleştirerek alıyoruz
         $productsOut = ProductsOut::join('stock_cards', 'vw_products_out.stock_cards_id', '=', 'stock_cards.id')
             ->select('vw_products_out.*', 'stock_cards.product_name', 'stock_cards.unit');
@@ -122,8 +130,8 @@ class ProductsOutController extends Controller
             $productsOut = $productsOut->where('stock_cards.product_name', 'LIKE', '%' . $query . '%');
         }
 
-        // Veritabanından verileri çekiyoruz
-        $productsOut = $productsOut->get();
+        // Sayfalama uyguluyoruz
+        $productsOut = $productsOut->paginate($perPage);
 
         // Görüntüleme
         return view('products.productsOut', compact('productsOut'));

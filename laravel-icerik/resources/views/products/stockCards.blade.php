@@ -191,29 +191,42 @@
                                                     @endforeach
                                                     @endif
                                                 </tbody>
-
                                             </table>
+
                                             <div class="d-flex align-items-center justify-content-end py-1">
-                                                <p class="mb-0 fs-2">Rows per page:</p>
-                                                <select
-                                                    class="form-select w-auto ms-0 ms-sm-2 me-8 me-sm-4 py-1 pe-7 ps-2 border-0"
-                                                    aria-label="Default select example">
-                                                    <option selected="">5</option>
-                                                    <option value="1">10</option>
-                                                    <option value="2">25</option>
-                                                </select>
-                                                <p class="mb-0 fs-2">1–5 of 12</p>
+                                                <p class="mb-0 fs-2">Sayfa başına:</p>
+                                                <form action="{{route('stock.cards.index')}}" method="GET"
+                                                    class="d-flex align-items-center">
+                                                    <select name="per_page" onchange="this.form.submit()"
+                                                        class="form-select w-auto ms-0 ms-sm-2 me-8 me-sm-4 py-1 pe-7 ps-2 border-0"
+                                                        aria-label="Default select example">
+                                                        <option value="10" {{ request('per_page')==10 ? 'selected' : ''
+                                                            }}>10</option>
+                                                        <option value="25" {{ request('per_page')==25 ? 'selected' : ''
+                                                            }}>25</option>
+                                                        <option value="50" {{ request('per_page')==50 ? 'selected' : ''
+                                                            }}>50</option>
+                                                        <option value="100" {{ request('per_page')==100 ? 'selected'
+                                                            : '' }}>100</option>
+                                                    </select>
+                                                </form>
+                                                <p class="mb-0 fs-2">{{
+                                                    $stockCards->firstItem()}}-{{$stockCards->lastItem()}} of
+                                                    {{$stockCards->total()}}
+                                                </p>
                                                 <nav aria-label="...">
                                                     <ul class="pagination justify-content-center mb-0 ms-8 ms-sm-9">
-                                                        <li class="page-item p-1">
+                                                        <li
+                                                            class="page-item p-1 {{ $stockCards->onFirstPage() ? 'disabled' : ''}} ">
                                                             <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
-                                                                href="javascript:void(0)">
+                                                                href="{{ $stockCards->previousPageUrl()}}">
                                                                 <i class="ti ti-chevron-left"></i>
                                                             </a>
                                                         </li>
-                                                        <li class="page-item p-1">
+                                                        <li
+                                                            class="page-item p-1 {{$stockCards->hasMorePages() ? '' : 'disabled'}}">
                                                             <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
-                                                                href="javascript:void(0)">
+                                                                href="{{ $stockCards->nextPageUrl()}}">
                                                                 <i class="ti ti-chevron-right"></i>
                                                             </a>
                                                         </li>
@@ -230,14 +243,7 @@
                 </div>
             </div>
         </div>
-        <div class="py-6 px-6 text-center">
-            <p class="mb-0 fs-4">Developed by <a href="https://suleyman-yilmaz-portfolio.vercel.app/" target="_blank"
-                    class="pe-1 text-primary text-decoration-underline">Süleyman Yılmaz</a>
-            </p>
-            <p class="mb-0 fs-4">Design by <a href="https://www.wrappixel.com/" target="_blank"
-                    class="pe-1 text-primary text-decoration-underline">Wrappixel.com</a>
-            </p>
-        </div>
+        @include('layouts.footer')
     </div>
 </div>
 @endsection

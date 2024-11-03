@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 
 class StockCardsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $stockCards = StockCards::all(); // Tüm kayıtları alın
+        $perPage = $request->get('per_page', 10);
+
+
+        $stockCards = StockCards::paginate($perPage); // Tüm kayıtları alın
         return view('products.stockCards', compact('stockCards')); // Görüntüle
     }
 
@@ -86,11 +89,16 @@ class StockCardsController extends Controller
     {
         $query = $request->query('query');
 
+        // Sayfa başına gösterilecek sonuç sayısını al, varsayılan olarak 5 ayarla
+        $perPage = $request->get('per_page', 9999999999999999);
+
         if (empty($query)) {
             $stockCards = StockCards::all();
         } else {
-            $stockCards = StockCards::where('product_name', 'LIKE', '%' . $query . '%')->get();
+            $stockCards = StockCards::where('product_name', 'LIKE', '%' . $query . '%');
         }
+
+        $stockCards = $stockCards->paginate($perPage);
 
         return view('products.stockCards', compact('stockCards'));
     }

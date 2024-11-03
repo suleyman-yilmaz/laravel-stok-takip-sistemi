@@ -49,8 +49,11 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     // Dashboard sayfası
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/products/save', [DashboardController::class, 'save'])->name('products.save');
 
     Route::get('/profile', [UserControlelr::class, 'index'])->name('profile.index');
+    Route::get('/profile/update', [UserControlelr::class, 'update'])->name('profile.update');
+    Route::post('/profile/update-password', [UserControlelr::class, 'updateProfile'])->name('profile.updateProfile');
 
     Route::get('/stock/cards', [StockCardsController::class, 'index'])->name('stock.cards.index');
     Route::get('/stock/cards/create', [StockCardsController::class, 'create'])->name('stock.cards.create');
@@ -84,7 +87,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/todo/{id}', [ToDoController::class, 'update'])->name('todo.update');
     Route::delete('todo/{id}', [ToDoController::class, 'destroy'])->name('todo.destroy');
 
-    
     Route::get('/help', function () {
         return view('products.help');
     })->name('help.index');

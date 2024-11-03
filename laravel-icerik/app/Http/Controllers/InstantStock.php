@@ -10,9 +10,11 @@ class InstantStock extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $vw_anlik = CurrentStock::all(); // Tüm kayıtları alın
+        $perPage = $request->get('per_page', 10);
+
+        $vw_anlik = CurrentStock::paginate($perPage); // Tüm kayıtları alın
         return view('products.productsStock', compact('vw_anlik')); // Görüntüle
     }
 
@@ -20,11 +22,16 @@ class InstantStock extends Controller
     {
         $query = $request->query('query');
 
+        // Sayfa başına gösterilecek sonuç sayısını al, varsayılan olarak 5 ayarla
+        $perPage = $request->get('per_page', 9999999999999999);
+
         if (empty($query)) {
             $vw_anlik = CurrentStock::all();
         } else {
-            $vw_anlik = CurrentStock::where('product_name', 'LIKE', '%' . $query . '%')->get();
+            $vw_anlik = CurrentStock::where('product_name', 'LIKE', '%' . $query . '%');
         }
+
+        $vw_anlik = $vw_anlik->paginate($perPage);
 
         return view('products.productsStock', compact('vw_anlik'));
     }

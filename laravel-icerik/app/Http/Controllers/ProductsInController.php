@@ -12,9 +12,11 @@ class ProductsInController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productsIn = ProductsIn::all(); // Tüm kayıtları alın
+        $perPage = $request->get('per_page', 10);
+        
+        $productsIn = ProductsIn::paginate($perPage);
         return view('products.productsIn', compact('productsIn', )); // Görüntüle
     }
 
@@ -109,6 +111,8 @@ class ProductsInController extends Controller
     {
         $query = $request->query('query');
 
+        $perPage = $request->get('per_page', 9999999999999999);
+
         // Tüm kayıtları view_products_in ve stock_cards tablosunu birleştirerek alıyoruz
         $productsIn = ProductsIn::join('stock_cards', 'view_products_in.stock_cards_id', '=', 'stock_cards.id')
             ->select('view_products_in.*', 'stock_cards.product_name', 'stock_cards.unit');
@@ -119,7 +123,7 @@ class ProductsInController extends Controller
         }
 
         // Veritabanından verileri çekiyoruz
-        $productsIn = $productsIn->get();
+        $productsIn = $productsIn->paginate($perPage);
 
         // Görüntüleme
         return view('products.productsIn', compact('productsIn'));

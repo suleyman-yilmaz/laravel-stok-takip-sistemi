@@ -13,7 +13,7 @@
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                 <!-- Dil Seçenekleri -->
-                <li class="nav-item dropdown mx-2">
+                {{-- <li class="nav-item dropdown mx-2">
                     <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <iconify-icon icon="material-symbols:language" width="1.2rem" height="1.2rem"
@@ -33,7 +33,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <!-- Mevcut profil menüsü -->
                 <li class="nav-item dropdown">
