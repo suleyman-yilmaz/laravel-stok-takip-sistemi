@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstantStock;
 use App\Http\Controllers\LoginController;
@@ -47,9 +49,30 @@ Route::middleware('guest')->group(function () {
 
 // Yetkilendirme gerektiren rotalar
 Route::middleware('auth')->group(function () {
-    // Dashboard sayfası
+    // Admin Dashboard sayfası
+    Route::get('admin/dashboard', [AdminController::class, 'index'])
+        ->name('admin.dashboard.index')
+        ->middleware('check.if.admin');
+
+    Route::get('admin/contact', [AdminController::class, 'contact'])
+        ->name('admin.contact')
+        ->middleware('check.if.admin');
+
+    Route::delete('/admin/contact/{id}', [AdminController::class, 'destroy'])
+        ->name('admin.contact.destroy')
+        ->middleware('check.if.admin');
+
+    Route::put('/admin/contact/{id}', [AdminController::class, 'updateContact'])
+        ->name('admin.contact.update')
+        ->middleware('check.if.admin');
+
+    Route::put('/admin/updateAll', [AdminController::class, 'updateAll'])
+        ->name('admin.updateAll')
+        ->middleware('check.if.admin');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::post('/products/save', [DashboardController::class, 'save'])->name('products.save');
+    Route::post('/dashboard/in', [DashboardController::class, 'storeProductEntry'])->name('dashboard.product.in');
+    Route::post('/dashboard/out', [DashboardController::class, 'storeProductExit'])->name('dashboard.product.out');
 
     Route::get('/profile', [UserControlelr::class, 'index'])->name('profile.index');
     Route::get('/profile/update', [UserControlelr::class, 'update'])->name('profile.update');
@@ -73,6 +96,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/products/in/{id}/{stockid}', [ProductsInController::class, 'update'])->name('products.in.update');
     Route::delete('/products/in/{id}', [ProductsInController::class, 'destroy'])->name('products.in.destroy');
     Route::get('/products/in/search/{query?}', [ProductsInController::class, 'searchProduct'])->name('products.in.searchProductStock');
+    Route::get('/api/products/in/search', [ProductsInController::class, 'searchProductIn'])->name('products.in.search');
 
     Route::get('/products/out', [ProductsOutController::class, 'index'])->name('products.out.index');
     Route::post('/products/out', [ProductsOutController::class, 'store'])->name('products.out.store');
@@ -80,6 +104,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/products/out/{id}/{stockid}', [ProductsOutController::class, 'update'])->name('products.out.update');
     Route::delete('/products/out/{id}', [ProductsOutController::class, 'destroy'])->name('products.out.destroy');
     Route::get('/products/out/search/{query?}', [ProductsOutController::class, 'searchProduct'])->name('products.out.searchProductStock');
+    Route::get('/api/products/out/search', [ProductsOutController::class, 'searchProductOut'])->name('products.out.search');
 
     Route::get('/todo', [ToDoController::class, 'index'])->name('todo.index');
     Route::post('/todo', [ToDoController::class, 'store'])->name('todo.store');
@@ -91,7 +116,6 @@ Route::middleware('auth')->group(function () {
         return view('products.help');
     })->name('help.index');
 
-    Route::get('/contact', function () {
-        return view('products.contact');
-    })->name('contact.index');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 });

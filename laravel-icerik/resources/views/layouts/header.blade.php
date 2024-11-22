@@ -39,16 +39,18 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img src="{{asset('assets/images/profile/user-1.jpg')}}" alt="" width="35" height="35"
-                            class="rounded-circle">
+                        <img src="@if ($userGender == '1') {{ asset('assets/images/profile/user-1.jpg') }}
+                                    @else {{ asset('assets/images/profile/user-2.jpg') }} @endif"
+                            alt="" width="35" height="35" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
-                            <a href="{{route('profile.index')}}" class="d-flex align-items-center gap-2 dropdown-item">
+                            <a href="{{ route('profile.index') }}"
+                                class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-user fs-6"></i>
                                 <p class="fs-3">Profilim</p>
                             </a>
-                            <a href="{{route('todo.index')}}" class="d-flex align-items-center gap-2 dropdown-item">
+                            <a href="{{ route('todo.index') }}" class="d-flex align-items-center gap-2 dropdown-item">
                                 <i class="ti ti-list-check fs-6"></i>
                                 <p class="fs-3">Yapılacaklar</p>
                             </a>

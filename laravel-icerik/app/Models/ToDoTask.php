@@ -11,5 +11,6 @@ class ToDoTask extends Model
     protected $fillable = [
         'task',
         'status_id',
+        'user_id',
     ];
 }

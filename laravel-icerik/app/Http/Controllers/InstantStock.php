@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CurrentStock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InstantStock extends Controller
 {
@@ -12,28 +13,39 @@ class InstantStock extends Controller
      */
     public function index(Request $request)
     {
+        // per_page'yi bir kez alıyoruz
         $perPage = $request->get('per_page', 10);
-
-        $vw_anlik = CurrentStock::paginate($perPage); // Tüm kayıtları alın
-        return view('products.productsStock', compact('vw_anlik')); // Görüntüle
+    
+        // Sayfalandırma işlemi ve diğer parametrelerin korunması
+        $vw_anlik = CurrentStock::where('user_id', Auth::id())
+            ->paginate($perPage)
+            ->appends($request->except('per_page'));  // 'per_page' parametresini dışarıda bırakıyoruz
+    
+        return view('products.productsStock', compact('vw_anlik'));
     }
+    
+    
+
 
     public function searchProduct(Request $request)
     {
         $query = $request->query('query');
+        $userId = Auth::id(); // Oturum açmış kullanıcının ID'sini al
 
-        // Sayfa başına gösterilecek sonuç sayısını al, varsayılan olarak 5 ayarla
+        // Sayfa başına gösterilecek sonuç sayısını al, varsayılan olarak 10 ayarla
         $perPage = $request->get('per_page', 9999999999999999);
 
-        if (empty($query)) {
-            $vw_anlik = CurrentStock::all();
-        } else {
-            $vw_anlik = CurrentStock::where('product_name', 'LIKE', '%' . $query . '%');
+        // Kullanıcı ID'sine göre başlangıç sorgusunu oluştur
+        $vw_anlik = CurrentStock::where('user_id', $userId);
+
+        if (!empty($query)) {
+            // Ürün adına göre filtrele
+            $vw_anlik->where('product_name', 'LIKE', '%' . $query . '%');
         }
 
-        $vw_anlik = $vw_anlik->paginate($perPage);
+        $vw_anlik = $vw_anlik->paginate($perPage); // Sonuçları sayfalandır
 
-        return view('products.productsStock', compact('vw_anlik'));
+        return view('products.productsStock', compact('vw_anlik')); // Görüntüle
     }
 
     /**

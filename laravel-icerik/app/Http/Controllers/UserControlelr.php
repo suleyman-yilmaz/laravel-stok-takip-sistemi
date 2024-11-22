@@ -24,6 +24,7 @@ class UserControlelr extends Controller
     {
         if (Auth::check()) {
             $userName = Auth::user()->name;
+            $userGender = Auth::user()->gender;
             $email = Auth::user()->email;
             $totalEntryPrice = ProductsIn::sum('total_amount');
             $totalOutputPrice = ProductsOut::sum('total_amount');
@@ -43,6 +44,7 @@ class UserControlelr extends Controller
 
             return view('auth.profile', compact(
                 'userName',
+                'userGender',
                 'email',
                 'totalEntryPrice',
                 'totalOutputPrice',
@@ -115,6 +117,7 @@ class UserControlelr extends Controller
             'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
             'old_password' => 'required',
             'new_password' => 'nullable|min:8|confirmed',
+            'gender' => 'required|in:0,1',
         ]);
 
         $user = User::find(Auth::id());
@@ -129,6 +132,7 @@ class UserControlelr extends Controller
         // İsim ve e-posta güncelleme
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->gender = $request->gender;
 
         // Yeni şifre varsa güncelle
         if ($request->filled('new_password')) {

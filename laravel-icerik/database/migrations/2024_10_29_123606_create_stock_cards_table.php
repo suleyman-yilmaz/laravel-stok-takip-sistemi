@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('stock_cards', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('product_name');
             $table->string('unit');
             $table->boolean('status');

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('products_out', function (Blueprint $table) {
             $table->id();
             $table->foreignId('stock_cards_id')->constrained()->restrictOnDelete();
+            $table->unsignedBigInteger('user_id');
             $table->integer('output_amount');
             $table->string('output_price');
             $table->string('total_amount');

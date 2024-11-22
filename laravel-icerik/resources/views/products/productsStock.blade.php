@@ -117,41 +117,34 @@
                                         </table>
                                         <div class="d-flex align-items-center justify-content-end py-1">
                                             <p class="mb-0 fs-2">Sayfa başına:</p>
-                                            <form action="{{route('products.stock.index')}}" method="GET"
-                                                class="d-flex align-items-center">
+                                            <form action="{{ route('products.stock.index') }}" method="GET" class="d-flex align-items-center">
                                                 <select name="per_page" onchange="this.form.submit()"
                                                     class="form-select w-auto ms-0 ms-sm-2 me-8 me-sm-4 py-1 pe-7 ps-2 border-0"
                                                     aria-label="Default select example">
-                                                    <option value="10" {{ request('per_page')==10 ? 'selected' : '' }}>
-                                                        10</option>
-                                                    <option value="25" {{ request('per_page')==25 ? 'selected' : '' }}>
-                                                        25</option>
-                                                    <option value="50" {{ request('per_page')==50 ? 'selected' : '' }}>
-                                                        50</option>
-                                                    <option value="100" {{ request('per_page')==100 ? 'selected' : ''
-                                                        }}>100</option>
+                                                    <option value="10" {{ request('per_page') == 10 ? 'selected' : '' }}>10</option>
+                                                    <option value="25" {{ request('per_page') == 25 ? 'selected' : '' }}>25</option>
+                                                    <option value="50" {{ request('per_page') == 50 ? 'selected' : '' }}>50</option>
+                                                    <option value="100" {{ request('per_page') == 100 ? 'selected' : '' }}>100</option>
                                                 </select>
-                                            </form>
+                                            </form>                                            
                                             <p class="mb-0 fs-2">
                                                 {{ $vw_anlik->firstItem()}} - {{$vw_anlik->lastItem()}} of
                                                 {{$vw_anlik->total()}}
                                             </p>
                                             <nav aria-label="...">
                                                 <ul class="pagination justify-content-center mb-0 ms-8 ms-sm-9">
-                                                    <li
-                                                        class="page-item p-1 {{$vw_anlik->onFirstPage() ? 'disabled' : ''}}">
+                                                    <li class="page-item p-1 {{ $vw_anlik->onFirstPage() ? 'disabled' : '' }}">
                                                         <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
-                                                            href="{{ $vw_anlik->previousPageUrl()}}">
+                                                            href="{{ $vw_anlik->previousPageUrl() }}&per_page={{ request('per_page') }}">
                                                             <i class="ti ti-chevron-left"></i>
                                                         </a>
                                                     </li>
-                                                    <li
-                                                        class="page-item p-1 {{$vw_anlik->hasMorePages() ? '' : 'disabled'}}">
+                                                    <li class="page-item p-1 {{ $vw_anlik->hasMorePages() ? '' : 'disabled' }}">
                                                         <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
-                                                            href="{{ $vw_anlik->nextPageUrl()}}">
+                                                            href="{{ $vw_anlik->nextPageUrl() }}&per_page={{ request('per_page') }}">
                                                             <i class="ti ti-chevron-right"></i>
                                                         </a>
-                                                    </li>
+                                                    </li>                                                    
                                                 </ul>
                                             </nav>
                                         </div>

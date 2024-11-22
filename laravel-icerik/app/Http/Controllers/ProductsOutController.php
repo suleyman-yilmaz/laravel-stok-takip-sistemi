@@ -6,6 +6,7 @@ use App\Models\ProductsOut;
 use App\Models\StockCards;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProductsOutController extends Controller
 {
@@ -14,14 +15,14 @@ class ProductsOutController extends Controller
      */
     public function index(Request $request)
     {
+        $stockcards = StockCards::where('user_id', Auth::id())->get();
         // Sayfa başına gösterilecek satır sayısını al
         $perPage = $request->get('per_page', 10); // Varsayılan olarak 5 satır göster
 
         // Sayfalandırmayı uygulayın
-        $productsOut = ProductsOut::paginate($perPage);
-        $stockCards = StockCards::all(); // Tüm kayıtları alın (eğer gerekliyse)
+        $productsOut = ProductsOut::where('user_id', Auth::id())->paginate($perPage);
 
-        return view('products.productsOut', compact('productsOut', 'stockCards'));
+        return view('products.productsOut', compact('productsOut', 'stockcards'));
     }
 
     /**
@@ -46,14 +47,22 @@ class ProductsOutController extends Controller
             'description' => 'required|string|max:255', // Boş olabilir, ancak maksimum 255 karakter içermeli
         ]);
 
+        $userId = Auth::id();
+        $stockCards = StockCards::where('id', $request->stock_cards_id)->where('user_id', $userId)->first();
+
+        if (!$stockCards) {
+            return redirect()->route('products.out.index')->with('error', 'Bu stok kartını ekleme yetkiniz yok.');
+        }
+
         // Yordamı çağır ve parametreleri geçir
-        DB::statement('CALL sp_products_out(?, ?, ?, ?, ?, ?, ?, ?)', [
+        DB::statement('CALL sp_products_out(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
             $request->stock_cards_id,
             $request->output_amount,
             $request->output_price,
             $request->total_amount,
             $request->output_date,
             $request->description,
+            $userId, // Kullanıcı ID'sini ekliyoruz
             now(), // created_at için şu anki zaman
             now(), // updated_at için de şu anki zaman
         ]);
@@ -117,24 +126,41 @@ class ProductsOutController extends Controller
     public function searchProduct(Request $request)
     {
         $query = $request->query('query');
+        $userId = Auth::id(); // Oturum açmış kullanıcının ID'sini al
 
         // Sayfa başına gösterilecek sonuç sayısını al, varsayılan olarak 5 ayarla
         $perPage = $request->get('per_page', 9999999999999999);
 
-        // Tüm kayıtları view_products_out ve stock_cards tablosunu birleştirerek alıyoruz
-        $productsOut = ProductsOut::join('stock_cards', 'vw_products_out.stock_cards_id', '=', 'stock_cards.id')
-            ->select('vw_products_out.*', 'stock_cards.product_name', 'stock_cards.unit');
+        // Kullanıcının ürün çıkışlarını al
+        $productsOut = ProductsOut::where('user_id', $userId);
 
         // Eğer arama sorgusu varsa product_name'e göre filtreleme yapıyoruz
         if (!empty($query)) {
-            $productsOut = $productsOut->where('stock_cards.product_name', 'LIKE', '%' . $query . '%');
+            $productsOut = $productsOut->where('product_name', 'LIKE', '%' . $query . '%');
         }
 
         // Sayfalama uyguluyoruz
         $productsOut = $productsOut->paginate($perPage);
+        
+        $stockcards = StockCards::where('user_id', Auth::id())->get();
 
-        // Görüntüleme
-        return view('products.productsOut', compact('productsOut'));
+
+        return view('products.productsOut', compact('productsOut', 'stockcards'));
+    }
+
+    public function searchProductOut(Request $request)
+    {
+        $query = $request->query('query');
+        $userId = Auth::id(); // Oturum açmış kullanıcının ID'sini al
+
+        $productsIn = StockCards::where('user_id', $userId)
+            ->when($query, function ($queryBuilder) use ($query) {
+                return $queryBuilder->where('product_name', 'LIKE', '%' . $query . '%');
+            })
+            ->limit(10) // En fazla 10 sonuç
+            ->get(['id', 'product_name']); // Sadece gerekli alanları al
+
+        return response()->json($productsIn);
     }
 
 }

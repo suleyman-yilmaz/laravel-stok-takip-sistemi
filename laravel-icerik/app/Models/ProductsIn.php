@@ -10,6 +10,7 @@ class ProductsIn extends Model
 
     protected $fillable = [
         'stock_cards_id',
+        'user_id',
         'input_amount',
         'entry_price',
         'total_amount',

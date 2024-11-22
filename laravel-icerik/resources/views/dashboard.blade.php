@@ -17,38 +17,50 @@
 
                     <div class="card" style="border-radius: 28px">
                         <div class="position-relative">
-                            <img class="card-img-top" src="{{ asset('assets/images/backgrounds/profilebg.jpg') }}"
+                            <img class="card-img-top" src="{{ asset('assets/images/backgrounds/profile-bg.jpg') }}"
                                 alt="Card image cap" style="max-height: 450px">
-                            <div class="card-img-overlay p-4">
-                                <div class="text-white mt-3">
-                                    <h2 class="display-6 fw-bold">Hoş geldin, {{ $userName }}</h2>
-                                    <span>
-                                        <iconify-icon icon="solar:cloud-sun-bold-duotone" class="display-4"></iconify-icon>
-                                    </span>
-                                    <div class="mb-2 mt-4">
-                                        <span class="display-6">20°
-                                            <span class="fs-6">C</span>
-                                        </span>
-                                        <span class="fs-6">/</span>
-                                        <span class="fs-6">7°
-                                            <span>C</span>
-                                        </span>
-                                    </div>
-                                    <p id="todayDate" class="fs-3 mb-0 opacity-75"></p>
-                                </div>
+                            <div class="card-img-overlay d-flex align-items-center justify-content-center flex-column">
+                                <img src=" @if ($userGender == '1') {{ asset('assets/images/profile/user-1.jpg') }}
+                                    @else {{ asset('assets/images/profile/user-2.jpg') }} @endif"
+                                    alt="materialm-img" class="rounded-circle" width="100">
+                                <h4 class="card-title text-white mt-3 mb-0">Hoş Geldin, {{ $userName }}</h4>
                             </div>
                         </div>
 
-                        <div class="card-footer text-bg-white" id="hava-durumu">
+                        <div class="card-body text-center">
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="row text-center" id="days-container">
-                                        <!-- Günler buraya JavaScript ile eklenecek -->
-                                    </div>
+                                <div class="col">
+                                    <h4 class="mb-0 card-title">{{ $totalUserTodoCount }}</h4> {{-- {{$totalUsersCount}} --}}
+                                    <p class="fs-3 mb-0">Tamamlanması Gereken Görevler</p>
+                                </div>
+                                <div class="col">
+                                    <h4 class="mb-0 card-title">
+                                        {{ $currentMonthProductInCount }}
+                                    </h4>
+                                    <p class="fs-3 mb-0">Bu Ay Girişi Yapılmş Ürünler</p>
+                                </div>
+                                <div class="col">
+                                    <h4 class="mb-0 card-title">
+                                        {{ $currentYearProductInCount }}
+                                    </h4>
+                                    <p class="fs-3 mb-0">Bu Yıl Girişi Yapılmş Ürünler</p>
+                                </div>
+                                <div class="col">
+                                    <h4 class="mb-0 card-title">
+                                        {{ $currentMonthProductOutCount }}
+                                    </h4>
+                                    <p class="fs-3 mb-0">Bu Ay Çıkışı Yapılmş Ürünler</p>
+                                </div>
+                                <div class="col">
+                                    <h4 class="mb-0 card-title">
+                                        {{ $currentYearProductOutCount }}
+                                    </h4>
+                                    <p class="fs-3 mb-0">Bu Yıl Çıkışı Yapılmş Ürünler</p>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <!--  Row 1 -->
                     <div class="row">
@@ -200,8 +212,9 @@
                             <div class="card w-100 overflow-hidden" id="popular-urun">
                                 <div class="card-body pb-0">
                                     <h4 class="fs-4 mb-1 card-title" id="popular-urun-yazi">Popüler Ürünler</h4>
-                                    <p class="mb-0 card-subtitle" id="popular-urun-yazi-1">En fazla işlem yapılmış ürünler
-                                        aşağıda listelenir.</p>
+                                    <p class="mb-0 card-subtitle" id="popular-urun-yazi-1">
+                                        10 kere giriş veya çıkış yapılmış ürünler aşağıda listelenir.
+                                    </p>
                                 </div>
                                 <div data-simplebar class="position-relative">
                                     <div class="table-responsive products-tabel" data-simplebar>
@@ -209,69 +222,71 @@
                                             <thead class="fs-4">
                                                 <tr>
                                                     <th class="fs-3 px-4">Ürün Adı</th>
-                                                    <th class="fs-3">İşlem Sayısı</th>
+                                                    <th class="fs-3">Birimi</th>
                                                     <th class="fs-3"></th>
                                                     <th class="fs-3">İşlemler</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($popularProducts as $product)
+                                                @if ($popularProducts->isEmpty())
                                                     <tr>
-                                                        <td>
-                                                            <div class="d-flex align-items-center product">
-                                                                <div class="ms-3 product-title">
-                                                                    <h6 class="fs-3 mb-0 text-truncate-2">
-                                                                        {{ $product->product_name }}
-                                                                    </h6>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <h5 class="mb-0 fs-4">
-                                                                @if ($product->products_in_count + $product->products_out_count >= 15)
-                                                                    {{ $product->products_in_count + $product->products_out_count }}
-                                                                @endif
-                                                            </h5>
-                                                        </td>
-                                                        <td>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown dropstart">
-                                                                <a href="javascript:void(0)" class="text-muted"
-                                                                    id="dropdownMenuButton" data-bs-toggle="dropdown"
-                                                                    aria-expanded="false">
-                                                                    <i class="ti ti-dots-vertical fs-6"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton">
-                                                                    <li>
-                                                                        <a class="dropdown-item d-flex align-items-center gap-3"
-                                                                            href="javascript:void(0)"
-                                                                            data-product-id="{{ $product->id }}"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#productEntryModal"
-                                                                            onclick="openEntryModal({{ $product->id }})">
-                                                                            <i class="fs-4 ti ti-plus"></i>Giriş Yap
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a class="dropdown-item d-flex align-items-center gap-3"
-                                                                            href="javascript:void(0)"
-                                                                            data-product-id="{{ $product->id }}"
-                                                                            data-bs-toggle="modal"
-                                                                            data-bs-target="#productExitModal"
-                                                                            onclick="openExitModal({{ $product->id }})">
-                                                                            <i class="fs-4 ti ti-edit"></i>Çıkış Yap
-                                                                        </a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-
-
+                                                        <td colspan="4" class="text-center">Kayıt yok</td>
                                                     </tr>
-                                                @endforeach
+                                                @else
+                                                    @foreach ($popularProducts as $product)
+                                                        <tr>
+                                                            <td>
+                                                                <div class="d-flex align-items-center product">
+                                                                    <div class="ms-3 product-title">
+                                                                        <h6 class="fs-3 mb-0 text-truncate-2">
+                                                                            {{ $product->product_name }}
+                                                                        </h6>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <h5 class="mb-0 fs-4">
+                                                                    {{ $product->unit }}
+                                                                </h5>
+                                                            </td>
+                                                            <td>
+                                                            </td>
+                                                            <td>
+                                                                <div class="dropdown dropstart">
+                                                                    <a href="javascript:void(0)" class="text-muted"
+                                                                        id="dropdownMenuButton" data-bs-toggle="dropdown"
+                                                                        aria-expanded="false">
+                                                                        <i class="ti ti-dots-vertical fs-6"></i>
+                                                                    </a>
+                                                                    <ul class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton">
+                                                                        <li>
+                                                                            <a class="dropdown-item d-flex align-items-center gap-3"
+                                                                                href="javascript:void(0)"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#productEntryModal"
+                                                                                onclick="openEntryModal({{ $product->id }})">
+                                                                                <i class="fs-4 ti ti-plus"></i>Giriş Yap
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a class="dropdown-item d-flex align-items-center gap-3"
+                                                                                href="javascript:void(0)"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#productExitModal"
+                                                                                onclick="openExitModal({{ $product->id }})">
+                                                                                <i class="fs-4 ti ti-edit"></i>Çıkış Yap
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             </tbody>
+
+
                                         </table>
                                     </div>
                                 </div>
@@ -288,13 +303,15 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="productEntryForm">
+                                        <form id="productEntryForm" method="POST"
+                                            action="{{ route('dashboard.product.in') }}">
                                             @csrf
-                                            <input type="hidden" name="product_id" id="entry_product_id">
+                                            <input type="hidden" name="stock_cards_id" id="entry_product_id">
+
                                             <div class="mb-3">
                                                 <label for="entry_quantity" class="form-label">Giriş Miktarı</label>
                                                 <input type="number" class="form-control" id="entry_quantity"
-                                                    name="entry_quantity" required>
+                                                    name="input_amount" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="entry_price" class="form-label">Giriş Fiyatı</label>
@@ -304,29 +321,28 @@
                                             <div class="mb-3">
                                                 <label for="entry_total" class="form-label">Toplam Tutar</label>
                                                 <input type="number" class="form-control" id="entry_total"
-                                                    name="entry_total" required readonly>
+                                                    name="total_amount" required readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="entry_date" class="form-label">Giriş Tarihi</label>
                                                 <input id="entry_date" type="date" class="form-control"
-                                                    name="entry_date" required>
+                                                    name="input_date" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="entry_company" class="form-label">Firma</label>
                                                 <input type="text" class="form-control" id="entry_company"
-                                                    name="entry_company" required>
+                                                    name="description" required>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Giriş Yap</button>
                                             </div>
                                         </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Kapat</button>
-                                        <button type="button" class="btn btn-primary"
-                                            onclick="submitEntryForm()">Kaydet</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
 
                         <!-- Ürün Çıkışı Modal -->
                         <div class="modal fade" id="productExitModal" tabindex="-1"
@@ -339,42 +355,41 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="productExitForm">
+                                        <form id="productExitForm" method="POST"
+                                            action="{{ route('dashboard.product.out') }}">
                                             @csrf
-                                            <input type="hidden" name="product_id" id="exit_product_id">
+                                            <input type="hidden" name="stock_cards_id" id="exit_product_id">
+
                                             <div class="mb-3">
-                                                <label for="exit_quantity" class="form-label">Çıkış Miktarı</label>
-                                                <input type="number" class="form-control" id="exit_quantity"
-                                                    name="exit_quantity" required>
+                                                <label for="output_quanity" class="form-label">Çıkış Miktarı</label>
+                                                <input type="number" class="form-control" id="output_quanity"
+                                                    name="output_amount" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="exit_reason" class="form-label">Çıkış Fiyatı</label>
-                                                <input type="number" class="form-control" id="exit_reason"
-                                                    name="exit_reason" required>
+                                                <label for="output_price" class="form-label">Çıkış Fiyatı</label>
+                                                <input type="number" class="form-control" id="output_price"
+                                                    name="output_price" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="exit_reason" class="form-label">Toplam Tutar</label>
-                                                <input type="number" class="form-control" id="exit_reason"
-                                                    name="exit_reason" required readonly>
+                                                <label for="total_output_amount" class="form-label">Toplam Tutar</label>
+                                                <input type="number" class="form-control" id="total_output_amount"
+                                                    name="total_amount" required readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="output_date" class="form-label">Çıkış Tarihi</label>
                                                 <input id="output_date" type="date" class="form-control"
-                                                    name="entry_date" required>
+                                                    name="output_date" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exit_company" class="form-label">Açıklama</label>
                                                 <input type="text" class="form-control" id="exit_company"
-                                                    name="exit_company" required>
+                                                    name="description" required>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Kapat</button>
-                                        <button type="button" class="btn btn-primary"
-                                            onclick="submitExitForm()">Kaydet</button>
-                                    </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Çıkış Yap</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -482,31 +497,30 @@
 @endsection
 @section('scripts')
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const daysContainer = document.getElementById("days-container");
-            const daysOfWeek = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-            const icons = ["ti ti-cloud", "ti ti-cloud", "ti ti-sun-high", "ti ti-cloud-fog", "ti ti-cloud-storm",
-                "ti ti-cloud-rain"
-            ];
-            const temperatures = [24, 21, 25, 20, 18, 14]; // Örnek sıcaklıklar
+        document.getElementById('entry_quantity').addEventListener('input', calculateTotal);
+        document.getElementById('entry_price').addEventListener('input', calculateTotal);
 
-            const today = new Date().getDay(); // Bugünün gün sırasını al
-            for (let i = 0; i < 6; i++) {
-                const dayIndex = (today + i + 1) % 7; // Haftanın günü sırasını hesapla
-                const dayName = daysOfWeek[dayIndex];
-                const icon = icons[i % icons.length];
-                const temp = temperatures[i % temperatures.length];
+        function calculateTotal() {
+            const quantity = parseFloat(document.getElementById('entry_quantity').value) || 0;
+            const price = parseFloat(document.getElementById('entry_price').value) || 0;
+            const total = quantity * price;
 
-                const dayElement = `
-            <div class="col-6 col-md-2 ${i < 5 ? 'border-end' : ''}">
-                <div class="mb-2">${dayName}</div>
-                <i class="${icon} fs-9 mb-2"></i>
-                <div>${temp}°<span>C</span></div>
-            </div>
-            `;
-                daysContainer.insertAdjacentHTML("beforeend", dayElement);
-            }
-        });
+            // Toplam tutarı ilgili input alanına yazdır
+            document.getElementById('entry_total').value = total.toFixed(2); // 2 ondalıklı gösterim
+        }
+
+        document.getElementById('output_quanity').addEventListener('input', calculateOutPutTotal);
+        document.getElementById('output_price').addEventListener('input', calculateOutPutTotal);
+
+        function calculateOutPutTotal() {
+            const quantity = parseFloat(document.getElementById('output_quanity').value) || 0;
+            const price = parseFloat(document.getElementById('output_price').value) || 0;
+            const total = quantity * price;
+
+            // Toplam tutarı ilgili input alanına yazdır
+            document.getElementById('total_output_amount').value = total.toFixed(2); // 2 ondalıklı gösterim
+        }
+
 
         function setTodayDate() {
             var today = new Date();
@@ -520,39 +534,25 @@
             document.getElementById('output_date').value = currentDate;
         }
 
-
-
-        const days = ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"];
-
-        const today = new Date();
-
-        const dayName = days[today.getDay()];
-        const day = String(today.getDate()).padStart(2, '0'); // Günü 2 basamaklı hale getirin
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // Ayı 2 basamaklı hale getirin
-        const year = today.getFullYear();
-
-        const formattedDate = `${dayName} ${day}-${month}-${year}`;
-
-        document.getElementById("todayDate").textContent = formattedDate;
+        $('#productEntryModal').on('shown.bs.modal', function() {
+            document.getElementById('entry_product_id').value = window.productIdForModal;
+        });
 
         function openEntryModal(productId) {
-            document.getElementById('entry_product_id').value = productId;
-            document.getElementById('productEntryForm').reset(); // Formu sıfırla
-            setTodayDate(); // Bugünün tarihini ayarla
+            window.productIdForModal = productId;
+            document.getElementById('productEntryForm').reset();
+            setTodayDate();
         }
+
+
+        $('#productExitModal').on('shown.bs.modal', function() {
+            document.getElementById('exit_product_id').value = window.productIdForModal;
+        });
 
         function openExitModal(productId) {
-            document.getElementById('exit_product_id').value = productId;
+            window.productIdForModal = productId;
             document.getElementById('productExitForm').reset(); // Formu sıfırla
             setTodayDate(); // Bugünün tarihini ayarla
-        }
-
-        function submitEntryForm() {
-            // Formu gönderme işlemi burada yapılacak
-        }
-
-        function submitExitForm() {
-            // Formu gönderme işlemi burada yapılacak
         }
     </script>
 @endsection

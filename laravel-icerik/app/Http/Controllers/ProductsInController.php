@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProductsIn;
 use App\Models\StockCards;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProductsInController extends Controller
@@ -14,10 +15,11 @@ class ProductsInController extends Controller
      */
     public function index(Request $request)
     {
+        $stockcards = StockCards::where('user_id', Auth::id())->get();
         $perPage = $request->get('per_page', 10);
-        
-        $productsIn = ProductsIn::paginate($perPage);
-        return view('products.productsIn', compact('productsIn', )); // Görüntüle
+
+        $productsIn = ProductsIn::where('user_id', Auth::id())->paginate($perPage)->appends($request->except('per_page'));
+        return view('products.productsIn', compact('productsIn', 'stockcards'));
     }
 
     /**
@@ -42,14 +44,23 @@ class ProductsInController extends Controller
             'description' => 'required|string|max:255', // Boş olabilir, ancak maksimum 255 karakter içermeli
         ]);
 
+        $userId = Auth::id();
+
+        $stockCards = StockCards::where('id', $request->stock_cards_id)->where('user_id', $userId)->first();
+
+        if (!$stockCards) {
+            return redirect()->route('products.in.index')->with('error', 'Bu stok kartını ekleme yetkiniz yok.');
+        }
+
         // Yordamı çağır ve parametreleri geçir
-        DB::statement('CALL sp_products_in(?, ?, ?, ?, ?, ?, ?, ?)', [
+        DB::statement('CALL sp_products_in(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
             $request->stock_cards_id,
             $request->input_amount,
             $request->entry_price,
             $request->total_amount,
             $request->input_date,
             $request->description,
+            $userId, // Kullanıcı ID'sini ekliyoruz
             now(), // created_at için şu anki zaman
             now(), // updated_at için de şu anki zaman
         ]);
@@ -110,23 +121,39 @@ class ProductsInController extends Controller
     public function searchProduct(Request $request)
     {
         $query = $request->query('query');
+        $userId = Auth::id(); // Oturum açmış kullanıcının ID'sini al
 
         $perPage = $request->get('per_page', 9999999999999999);
 
-        // Tüm kayıtları view_products_in ve stock_cards tablosunu birleştirerek alıyoruz
-        $productsIn = ProductsIn::join('stock_cards', 'view_products_in.stock_cards_id', '=', 'stock_cards.id')
-            ->select('view_products_in.*', 'stock_cards.product_name', 'stock_cards.unit');
+        $productsIn = ProductsIn::where('user_id', $userId);
 
         // Eğer arama sorgusu varsa product_name'e göre filtreleme yapıyoruz
         if (!empty($query)) {
-            $productsIn = $productsIn->where('stock_cards.product_name', 'LIKE', '%' . $query . '%');
+            $productsIn = $productsIn->where('product_name', 'LIKE', '%' . $query . '%');
         }
 
         // Veritabanından verileri çekiyoruz
         $productsIn = $productsIn->paginate($perPage);
 
+        $stockcards = StockCards::where('user_id', Auth::id())->get();
+
         // Görüntüleme
-        return view('products.productsIn', compact('productsIn'));
+        return view('products.productsIn', compact('productsIn', 'stockcards'));
+    }
+
+    public function searchProductIn(Request $request)
+    {
+        $query = $request->query('query');
+        $userId = Auth::id(); // Oturum açmış kullanıcının ID'sini al
+
+        $productsIn = StockCards::where('user_id', $userId)
+            ->when($query, function ($queryBuilder) use ($query) {
+                return $queryBuilder->where('product_name', 'LIKE', '%' . $query . '%');
+            })
+            ->limit(10) // En fazla 10 sonuç
+            ->get(['id', 'product_name']); // Sadece gerekli alanları al
+
+        return response()->json($productsIn);
     }
 
 }

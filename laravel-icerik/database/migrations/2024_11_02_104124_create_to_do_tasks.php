@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('to_do_tasks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('task');
             $table->string('status_id');
             $table->timestamps();

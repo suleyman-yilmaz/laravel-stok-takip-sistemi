@@ -21,43 +21,48 @@
                                 <form action="{{route('profile.updateProfile')}}" method="POST">
                                     @csrf
                                     <div class="mb-4 row align-items-center">
-                                        <label for="exampleInputText1"
-                                            class="form-label col-sm-3 col-form-label">İsim</label>
+                                        <label for="exampleInputText1" class="form-label col-sm-3 col-form-label">İsim</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="exampleInputText1"
-                                                value="{{ $user->name }}" name="name">
+                                            <input type="text" class="form-control" id="exampleInputText1" value="{{ $user->name }}" name="name">
                                         </div>
                                     </div>
                                     <div class="mb-4 row align-items-center">
-                                        <label for="exampleInputText2"
-                                            class="form-label col-sm-3 col-form-label">E-Mail</label>
+                                        <label for="exampleInputText2" class="form-label col-sm-3 col-form-label">E-Mail</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="exampleInputText2"
-                                                value="{{ $user->email }}" name="email">
+                                            <input type="text" class="form-control" id="exampleInputText2" value="{{ $user->email }}" name="email">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4 row align-items-center">
+                                        <label class="form-label col-sm-3 col-form-label">Cinsiyet</label>
+                                        <div class="col-sm-9">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gender" id="gender0" value="0" {{ $user->gender == 0 ? 'checked' : '' }} required>
+                                                <label class="form-check-label" for="gender0">Kız</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gender" id="gender1" value="1" {{ $user->gender == 1 ? 'checked' : '' }} required>
+                                                <label class="form-check-label" for="gender1">Erkek</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="mb-4 row align-items-center">
+                                        <label for="old_password" class="form-label col-sm-3 col-form-label">Eski Şifre</label>
+                                        <div class="col-sm-9">
+                                            <input type="password" class="form-control" id="old_password" name="old_password" required>
                                         </div>
                                     </div>
                                     <div class="mb-4 row align-items-center">
-                                        <label for="old_password" class="form-label col-sm-3 col-form-label">Eski
-                                            Şifre</label>
+                                        <label for="new_password" class="form-label col-sm-3 col-form-label">Yeni Şifre</label>
                                         <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="old_password"
-                                                name="old_password" required>
+                                            <input type="password" class="form-control" id="new_password" name="new_password" required>
                                         </div>
                                     </div>
                                     <div class="mb-4 row align-items-center">
-                                        <label for="new_password" class="form-label col-sm-3 col-form-label">Yeni
-                                            Şifre</label>
+                                        <label for="new_password_confirmation" class="form-label col-sm-3 col-form-label">Yeni Şifre Onay</label>
                                         <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="new_password"
-                                                name="new_password" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-4 row align-items-center">
-                                        <label for="new_password_confirmation"
-                                            class="form-label col-sm-3 col-form-label">Yeni Şifre Onay</label>
-                                        <div class="col-sm-9">
-                                            <input type="password" class="form-control" id="new_password_confirmation"
-                                                name="new_password_confirmation" required>
+                                            <input type="password" class="form-control" id="new_password_confirmation" name="new_password_confirmation" required>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -68,6 +73,7 @@
                                         </div>
                                     </div>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>

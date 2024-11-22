@@ -25,6 +25,7 @@ class RegisterController extends Controller
             'password.required' => 'Şifre alanı zorunludur.',
             'password.min' => 'Şifreniz en az 8 karakter uzunluğunda olmalıdır.',
             'password.confirmed' => 'Şifre onayı hatalıdır.',
+            'gender.required' => 'Cinsiyet alanı zorunludur.',
         ];
 
         // Validation işlemi
@@ -32,6 +33,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'gender' => 'required|in:0,1',
         ], $validationMessages);
 
         // Doğrulama hatalarını kontrol et
@@ -44,6 +46,7 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'gender' => $request->gender,
         ]);
 
         return redirect()->route('login')->with('success', 'Üyelik başarıyla oluşturuldu.');

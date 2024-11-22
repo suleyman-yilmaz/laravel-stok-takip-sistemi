@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ToDoTask;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ToDoController extends Controller
 {
@@ -12,8 +13,9 @@ class ToDoController extends Controller
      */
     public function index()
     {
-        $todos = ToDoTask::where('status_id', 1)->get(); // Yapılacaklar (status_id = 1)
-        $completed = ToDoTask::where('status_id', 2)->get(); // Yapıldı (status_id = 2)
+        $userId = Auth::id(); // Oturum açmış kullanıcının ID'sini alın
+        $todos = ToDoTask::where('status_id', 1)->where('user_id', $userId)->get(); // Yapılacaklar (status_id = 1) ve user_id ile filtreleyin
+        $completed = ToDoTask::where('status_id', 2)->where('user_id', $userId)->get(); // Yapıldı (status_id = 2) ve user_id ile filtreleyin
         return view('products.todo', compact('todos', 'completed'));
     }
 
@@ -29,6 +31,7 @@ class ToDoController extends Controller
         ToDoTask::create([
             'task' => $request->task,
             'status_id' => 1,
+            'user_id' => Auth::id(), // Oturum açmış kullanıcının ID'sini ekleyin
         ]);
 
         return redirect()->route('todo.index')->with('success', 'Görev Başarıyla Oluşturuldu.');

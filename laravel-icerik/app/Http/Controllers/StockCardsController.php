@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\StockCards;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StockCardsController extends Controller
 {
     public function index(Request $request)
     {
         $perPage = $request->get('per_page', 10);
-
-
-        $stockCards = StockCards::paginate($perPage); // Tüm kayıtları alın
-        return view('products.stockCards', compact('stockCards')); // Görüntüle
+        $stockCards = StockCards::where('user_id', Auth::id())->paginate($perPage)->appends($request->except('per_page'));
+        return view('products.stockCards', compact('stockCards'));
     }
+   
 
     public function create()
     {
@@ -34,6 +34,7 @@ class StockCardsController extends Controller
             'product_name' => $request->product_name,
             'unit' => $request->unit,
             'status' => true,
+            'user_id' => Auth::id(), // Oturum açmış kullanıcının ID'sini kaydet
         ]);
 
         // Başarılı bir şekilde kayıt yapıldıktan sonra yönlendirme
@@ -88,14 +89,15 @@ class StockCardsController extends Controller
     public function searchProduct(Request $request)
     {
         $query = $request->query('query');
+        $userId = Auth::id(); // Oturum açmış kullanıcının ID'sini al
 
         // Sayfa başına gösterilecek sonuç sayısını al, varsayılan olarak 5 ayarla
         $perPage = $request->get('per_page', 9999999999999999);
 
-        if (empty($query)) {
-            $stockCards = StockCards::all();
-        } else {
-            $stockCards = StockCards::where('product_name', 'LIKE', '%' . $query . '%');
+        $stockCards = StockCards::where('user_id', $userId);
+
+        if (!empty($query)) {
+            $stockCards->where('product_name', 'LIKE', '%' . $query . '%');
         }
 
         $stockCards = $stockCards->paginate($perPage);
