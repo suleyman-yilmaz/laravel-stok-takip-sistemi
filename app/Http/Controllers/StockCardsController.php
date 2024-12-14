@@ -174,7 +174,7 @@ class StockCardsController extends Controller
             $stockCardsQuery->where('product_name', 'like', '%' . $search . '%');
         }
 
-        $stockCards = $stockCardsQuery->get()->map(function ($stockCard) {
+        $stockData = $stockCardsQuery->get()->map(function ($stockCard) {
             $totalInput = $stockCard->productsIn->sum(function ($productIn) {
                 return (int) $productIn->input_amount;
             });
@@ -195,7 +195,7 @@ class StockCardsController extends Controller
             ];
         });
 
-        return view('products.stockCards', compact('stockCards', 'search'));
+        return view('products.productsStock', compact('stockData', 'search'));
     }
 
 }

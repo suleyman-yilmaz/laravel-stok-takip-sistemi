@@ -125,7 +125,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create Input Data
      */
     public function storeProductEntry(Request $request)
     {
@@ -149,51 +149,56 @@ class DashboardController extends Controller
             ], 403); // Yetkisiz erişim
         }
 
-        // Yordamı çağır ve parametreleri geçir
-        DB::statement('CALL sp_products_in(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
-            $request->stock_cards_id,
-            $request->input_amount,
-            $request->entry_price,
-            $request->total_amount,
-            $request->input_date,
-            $request->description,
-            $userId, // Kullanıcı ID'sini ekliyoruz
-            now(), // created_at için şu anki zaman
-            now(), // updated_at için de şu anki zaman
+        // ürün girişi yap
+        ProductsIn::create([
+            'user_id' => $userId,
+            'stock_cards_id' => $request->stock_cards_id,
+            'input_amount' => $request->input_amount,
+            'entry_price' => $request->entry_price,
+            'total_amount' => $request->total_amount,
+            'input_date' => $request->input_date,
+            'description' => $request->description,
         ]);
 
         return redirect()->route('products.in.index')->with('success', 'Ürün girişi başarıyla oluşturuldu.');
     }
 
     /**
-     * Display the specified resource.
+     * Create Output Data
      */
-    public function show(string $id)
+    public function storeProductExit(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'stock_cards_id' => 'required|integer|exists:stock_cards,id', // stock_cards tablosunda mevcut olmalı
+            'output_amount' => 'required|integer|min:1', // Pozitif tamsayı olmalı
+            'output_price' => 'required|numeric|min:0', // Pozitif bir sayı (decimal) olmalı
+            'total_amount' => 'required|numeric|min:0', // Pozitif bir sayı (decimal) olmalı, genellikle otomatik hesaplanır
+            'output_date' => 'required|date', // Geçerli bir tarih formatı
+            'description' => 'required|string|max:255', // Boş olabilir, ancak maksimum 255 karakter içermeli
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $userId = Auth::id();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        $stockCards = StockCards::where('id', $request->stock_cards_id)->where('user_id', $userId)->first();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        if (!$stockCards) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Bu stok kartını ekleme yetkiniz yok.',
+            ], 403); // Yetkisiz erişim
+        }
+
+        // ürün girişi yap
+        ProductsOut::create([
+            'user_id' => $userId,
+            'stock_cards_id' => $request->stock_cards_id,
+            'output_amount' => $request->output_amount,
+            'output_price' => $request->output_price,
+            'total_amount' => $request->total_amount,
+            'output_date' => $request->output_date,
+            'description' => $request->description,
+        ]);
+
+        return redirect()->route('products.out.index')->with('success', 'Ürün girişi başarıyla oluşturuldu.');
     }
 }

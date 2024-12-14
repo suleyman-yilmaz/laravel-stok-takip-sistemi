@@ -121,42 +121,6 @@
                             </div>
                         </div>
 
-
-                        {{-- <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-body">
-                                    <!-- Ürün adı arama alanı -->
-                                    <div class="mb-3">
-                                        <input type="text" placeholder="Ürün adı ara..." class="form-control"
-                                            style="width: 100%;">
-                                    </div>
-
-                                    <!-- Tablo -->
-                                    <div class="table-responsive border rounded-1">
-                                        <table class="table">
-                                            <thead class="table-primary">
-                                                <tr>
-                                                    <th>Barkod No</th>
-                                                    <th>Ürün Adı</th>
-                                                    <th>Birimi</th>
-                                                    <th>İşlem</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Nigam</td>
-                                                    <td>AD</td>
-                                                    <td><a href="" class="text-primary">Ekle</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-
-
                         <div class="container-fluid" id="search-results">
                             <div class="card-body">
                                 <div class="product-list">
@@ -329,14 +293,14 @@
                                                             <li
                                                                 class="page-item p-1 {{ $productsIn->onFirstPage() ? 'disabled' : '' }}">
                                                                 <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
-                                                                    href="{{ $productsIn->previousPageUrl() }}&per_page={{ request('per_page') }}">
+                                                                    href="{{ $productsIn->previousPageUrl() }}">
                                                                     <i class="ti ti-chevron-left"></i>
                                                                 </a>
                                                             </li>
                                                             <li
                                                                 class="page-item p-1 {{ $productsIn->hasMorePages() ? '' : 'disabled' }}">
                                                                 <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
-                                                                    href="{{ $productsIn->nextPageUrl() }}&per_page={{ request('per_page') }}">
+                                                                    href="{{ $productsIn->nextPageUrl() }}">
                                                                     <i class="ti ti-chevron-right"></i>
                                                                 </a>
                                                             </li>

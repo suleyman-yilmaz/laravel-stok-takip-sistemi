@@ -22,10 +22,5 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-
-        StockCards::factory(75)->create()->each(function ($stockCard) {
-            ProductsIn::factory(75)->create(['stock_cards_id' => $stockCard->id]);
-            ProductsOut::factory(75)->create(['stock_cards_id' => $stockCard->id]);
-        });
     }
 }

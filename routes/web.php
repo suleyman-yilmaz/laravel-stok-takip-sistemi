@@ -80,8 +80,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [StockCardsController::class, 'destroy'])->name('destroy');
         Route::get('/search/{query?}', [StockCardsController::class, 'searchProduct'])->name('searchProduct');
     });
-    Route::get('/products/stock', [StockCardsController::class, 'showUserStockLevels'])->name('products.stock.index');
-    Route::get('/products/stock/search/{query?}', [StockCardsController::class, 'searchProductInstantStock'])->name('products.stock.searchProductStock');
+
+
+    Route::prefix('products/stock')->name('products.stock.')->group(function(){
+        Route::get('/', [StockCardsController::class, 'showUserStockLevels'])->name('index');
+        Route::get('/search/{query?}', [StockCardsController::class, 'searchProductInstantStock'])->name('searchProductStock');
+    });
+    
 
     Route::prefix('products/in')->name('products.in.')->group(function () {
         Route::get('/', [ProductsInController::class, 'index'])->name('index');

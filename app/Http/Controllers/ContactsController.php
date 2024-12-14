@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactForm;
 use App\Models\Contacts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ContactsController extends Controller
 {
@@ -30,6 +32,17 @@ class ContactsController extends Controller
         ]);
 
         Contacts::create($request->all());
+
+        $details = [
+            'name' => $request->name,
+            'surname' => $request->surname,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ];
+
+        Mail::to('suleymanymz50@gmail.com')->send(new ContactForm($details));
         return redirect()->back()->with('success', 'Mesaj başarıyla gönderildi.');
     }
 }
