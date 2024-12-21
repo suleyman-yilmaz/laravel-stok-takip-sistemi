@@ -41,6 +41,12 @@ Route::middleware('guest')->group(function () {
         return view('auth.register');
     })->name('register');
 
+    Route::post('verify/email', [RegisterController::class, 'verifyEmail'])->name('verify.email.post');
+
+    Route::get('verify/email', function () {
+        return view('auth.verifyEmail');
+    })->name('verify.email');
+
     // Kayıt işlemi
     Route::post('/register', [RegisterController::class, 'register']);
 });
@@ -82,11 +88,11 @@ Route::middleware('auth')->group(function () {
     });
 
 
-    Route::prefix('products/stock')->name('products.stock.')->group(function(){
+    Route::prefix('products/stock')->name('products.stock.')->group(function () {
         Route::get('/', [StockCardsController::class, 'showUserStockLevels'])->name('index');
         Route::get('/search/{query?}', [StockCardsController::class, 'searchProductInstantStock'])->name('searchProductStock');
     });
-    
+
 
     Route::prefix('products/in')->name('products.in.')->group(function () {
         Route::get('/', [ProductsInController::class, 'index'])->name('index');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
@@ -11,12 +12,7 @@ class RegisterController extends Controller
 {
     public function register(Request $request)
     {
-        // E-posta adresinin mevcut olup olmadığını kontrol et
-        if (User::where('email', $request->email)->exists()) {
-            return redirect()->back()->withInput()->with('warning', 'Bu e-posta adresine ait bir üyelik mevcut.');
-        }
-
-        // Validation kuralları
+        // Validation mesajları
         $validationMessages = [
             'name.required' => 'İsim alanı zorunludur.',
             'email.required' => 'E-posta alanı zorunludur.',
@@ -41,14 +37,44 @@ class RegisterController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        // Doğrulama kodunu oluştur (6 haneli)
+        $verificationCode = random_int(100000, 999999);
+
         // Kullanıcı oluştur
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'gender' => $request->gender,
+            'verification_code' => $verificationCode,
+        ]);
+        // E-posta gönder
+        Mail::send('emails.verify', ['code' => $verificationCode], function ($message) use ($user) {
+            $message->to($user->email)->subject('E-Posta Doğrulama Kodu');
+        });
+
+        // Doğrulama ekranına yönlendir
+        return redirect()->route('verify.email')->with('success', 'Doğrulama kodu e-posta adresinize gönderildi.');
+    }
+
+    public function verifyEmail(Request $request)
+    {
+        $request->validate([
+            'verification_code' => 'required|digits:6',
         ]);
 
-        return redirect()->route('login')->with('success', 'Üyelik başarıyla oluşturuldu.');
+        $user = User::where('verification_code', $request->verification_code)->first();
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'Girilen doğrulama kodu geçersiz.');
+        }
+
+        $user->update([
+            'email_verified_at' => now(),
+            'verification_code' => null,
+        ]);
+
+        return redirect('/dashboard')->with('success', 'E-posta adresiniz başarıyla doğrulandı.');
     }
+
 }

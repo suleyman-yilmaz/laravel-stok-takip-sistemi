@@ -18,12 +18,12 @@ return new class extends Migration
             $table->boolean('gender');
             $table->boolean('type')->default(0);
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('verification_code', 6)->nullable(); // 6 haneli kod
+            $table->timestamp('email_verified_at')->nullable(); // Doğrulama zamanı
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
-
         $users = [
             ['id'=> 1, 'name' => 'Male Admin', 'gender' => 1, 'type'=> 1, 'email' => 'male@admin.com', 'password' => bcrypt('maleadmin')],
             ['id'=> 2, 'name' => 'Female Admin', 'gender' => 0, 'type'=> 1, 'email' => 'female@admin.com', 'password' => bcrypt('femaleadmin')],

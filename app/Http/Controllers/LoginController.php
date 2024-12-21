@@ -15,17 +15,26 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        // Kullanıcıyı doğrulama
+        // Kullanıcıyı e-posta ile al
+        $user = \App\Models\User::where('email', $request->email)->first();
+
+        // Kullanıcı mevcut mu ve email_verified_at alanı kontrolü
+        if ($user && is_null($user->email_verified_at)) {
+            return back()->withErrors([
+                'email' => 'Hesabınız henüz doğrulanmamış. Lütfen e-postanızı kontrol edin.',
+            ]);
+        }
+
+        // Giriş bilgilerini doğrula
         $credentials = $request->only('email', 'password');
 
-        // Şifre ve e-posta ile giriş denemesi
         if (Auth::attempt($credentials)) {
             // Oturum yenile
             $request->session()->regenerate();
             return redirect()->intended('dashboard')->with('success', 'Giriş başarılı.');
         }
 
-        // Şifre yanlışsa özel hata mesajı döndür
+        // Hatalı giriş için mesaj döndür
         return back()->withErrors([
             'email' => 'E-posta veya şifre yanlış. Lütfen tekrar deneyin.',
         ]);
