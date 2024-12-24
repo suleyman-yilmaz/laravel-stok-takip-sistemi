@@ -26,6 +26,10 @@ Route::post('/logout', function () {
     return redirect('/');
 })->name('logout');
 
+Route::get('verify/email', function () {
+    return view('auth.verifyEmail');
+})->middleware('email.verification.pending')->name('verify.email');
+
 // Giriş ve kayıt sayfalarına erişimi sınırlama
 Route::middleware('guest')->group(function () {
     // Giriş sayfası
@@ -42,10 +46,6 @@ Route::middleware('guest')->group(function () {
     })->name('register');
 
     Route::post('verify/email', [RegisterController::class, 'verifyEmail'])->name('verify.email.post');
-
-    Route::get('verify/email', function () {
-        return view('auth.verifyEmail');
-    })->name('verify.email');
 
     // Kayıt işlemi
     Route::post('/register', [RegisterController::class, 'register']);

@@ -52,6 +52,8 @@ class RegisterController extends Controller
         Mail::send('emails.verify', ['code' => $verificationCode], function ($message) use ($user) {
             $message->to($user->email)->subject('E-Posta Doğrulama Kodu');
         });
+        
+        session(['email_verification_pending' => true]);
 
         // Doğrulama ekranına yönlendir
         return redirect()->route('verify.email')->with('success', 'Doğrulama kodu e-posta adresinize gönderildi.');
@@ -76,5 +78,4 @@ class RegisterController extends Controller
 
         return redirect('/dashboard')->with('success', 'E-posta adresiniz başarıyla doğrulandı.');
     }
-
 }
