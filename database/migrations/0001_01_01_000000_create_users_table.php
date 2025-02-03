@@ -25,8 +25,8 @@ return new class extends Migration
             $table->timestamps();
         });
         $users = [
-            ['id'=> 1, 'name' => 'Male Admin', 'gender' => 1, 'type'=> 1, 'email' => 'male@admin.com', 'password' => bcrypt('maleadmin')],
-            ['id'=> 2, 'name' => 'Female Admin', 'gender' => 0, 'type'=> 1, 'email' => 'female@admin.com', 'password' => bcrypt('femaleadmin')],
+            ['id' => 1, 'name' => 'Male Admin', 'gender' => 1, 'type' => 1, 'email' => 'male@admin.com', 'email_verified_at' => now(), 'password' => bcrypt('maleadmin')],
+            ['id' => 2, 'name' => 'Female Admin', 'gender' => 0, 'type' => 1, 'email' => 'female@admin.com', 'email_verified_at' => now(), 'password' => bcrypt('femaleadmin')],
         ];
         DB::table('users')->insert($users);
 

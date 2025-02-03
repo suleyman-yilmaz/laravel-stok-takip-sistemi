@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class LoginController extends Controller
         ]);
 
         // Kullanıcıyı e-posta ile al
-        $user = \App\Models\User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
         // Kullanıcı mevcut mu ve email_verified_at alanı kontrolü
         if ($user && is_null($user->email_verified_at)) {
