@@ -100,6 +100,20 @@ class AdminController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function makeAdmin(Request $request, $id)
+    {
+        //dd($request->all(), $id);
+        $user = User::findOrFail($id);
+        $validatedData = $request->validate([
+            'type' => 'required|integer',
+        ]);
+        $user->update($validatedData);
+        return back()->with('success', 'Kullanıcı başarıyla admin yapıldı!');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function destroyUser(string $id)

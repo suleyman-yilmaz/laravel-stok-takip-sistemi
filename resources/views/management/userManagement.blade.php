@@ -73,6 +73,15 @@
                                                 @endif</h6>
                                         </td>
                                         <td class="d-flex align-items-center">
+                                            <form action="{{ route('admin.user.make.admin', $user->id) }}" method="post">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-sm btn-primary me-2">
+                                                    <i class="ti ti-user fs-6"></i>
+                                                </button>
+                                                <input type="hidden" name="type" value="@if($user->type == 1) 0 @else 1 @endif">
+                                            </form>
+
                                             <form action="{{ route('admin.user.verify', $user->id) }}" method="post">
                                                 @csrf
                                                 @method('PATCH')

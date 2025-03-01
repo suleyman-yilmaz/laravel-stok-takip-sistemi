@@ -65,6 +65,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
         Route::patch('/user/verify/{id}', [AdminController::class, 'userVerify'])->name('admin.user.verify');
         Route::delete('/user/destroy/{id}', [AdminController::class, 'destroyUser'])->name('admin.user.destroy');
+
+        Route::patch('/user/make-admin/{id}', [AdminController::class, 'makeAdmin'])->name('admin.user.make.admin');
     });
 
 
