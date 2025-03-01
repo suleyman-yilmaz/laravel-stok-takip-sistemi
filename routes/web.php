@@ -61,6 +61,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('/contact/{id}', [AdminController::class, 'destroy'])->name('admin.contact.destroy');
         Route::put('/contact/{id}', [AdminController::class, 'updateContact'])->name('admin.contact.update');
         Route::put('/updateAll', [AdminController::class, 'updateAll'])->name('admin.updateAll');
+
+        Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+        Route::patch('/user/verify/{id}', [AdminController::class, 'userVerify'])->name('admin.user.verify');
+        Route::delete('/user/destroy/{id}', [AdminController::class, 'destroyUser'])->name('admin.user.destroy');
     });
 
 

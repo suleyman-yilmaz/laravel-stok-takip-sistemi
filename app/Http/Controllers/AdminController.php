@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\Contacts;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -79,25 +80,33 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function users(Request $request)
     {
-        //
+        $users = User::all();
+        return view('management.userManagement', compact('users'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function userVerify(Request $request,  $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $validatedData = $request->validate([
+            'email_verified_at' => 'required|date',
+        ]);
+        $user->update($validatedData);
+        return back()->with('success', 'Kullanıcı doğrulaması başarıyla yapıldı!');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function destroyUser(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+        return back()->with('success', 'Kullanıcı başarıyla silindi!');
     }
 
     /**
