@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -21,11 +22,7 @@ class UserControlelr extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $userName = Auth::user()->name;
-            $userGender = Auth::user()->gender;
-            $email = Auth::user()->email;
-            $totalEntryPrice = ProductsIn::sum('total_amount');
-            $totalOutputPrice = ProductsOut::sum('total_amount');
+            $user = Auth::user();
             $aboutTitle1 = About::where('id', 1)->first();
             $aboutTitle2 = About::where('id', 2)->first();
             $aboutTitle3 = About::where('id', 3)->first();
@@ -41,11 +38,7 @@ class UserControlelr extends Controller
             $aboutDescription6 = About::where('id', 6)->first();
 
             return view('auth.profile', compact(
-                'userName',
-                'userGender',
-                'email',
-                'totalEntryPrice',
-                'totalOutputPrice',
+                'user',
                 'aboutTitle1',
                 'aboutTitle2',
                 'aboutTitle3',

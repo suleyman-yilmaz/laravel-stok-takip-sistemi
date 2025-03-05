@@ -29,7 +29,7 @@
                 <li class="nav-small-cap">
                     <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
                     <span class="hide-menu">ARAYÜZ BİLEŞENLERİ</span>
-                </li>  
+                </li>
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{route('stock.cards.index')}}" aria-expanded="false">
                         <iconify-icon icon="solar:card-2-outline"></iconify-icon>
@@ -59,12 +59,6 @@
                         <iconify-icon icon="hugeicons:contact-02" width="1.2rem" height="1.2rem"
                             style="color: black"></iconify-icon>
                         <span class="hide-menu">İletişim - Destek</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{route('help.index')}}" aria-expanded="false">
-                        <iconify-icon icon="material-symbols:help"></iconify-icon>
-                        <span class="hide-menu">Yardım</span>
                     </a>
                 </li>
                 <li>

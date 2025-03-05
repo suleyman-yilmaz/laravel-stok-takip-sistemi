@@ -130,10 +130,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{id}', [TodoController::class, 'destroy'])->name('destroy');
     });
 
-    Route::get('/help', function () {
-        return view('products.help');
-    })->name('help.index');
-
     Route::prefix('contact')->name('contact.')->group(function () {
         Route::get('/', [ContactsController::class, 'index'])->name('index');
         Route::post('/', [ContactsController::class, 'store'])->name('store');

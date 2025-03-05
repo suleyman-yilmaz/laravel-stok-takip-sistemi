@@ -15,8 +15,8 @@ class CheckIfAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->type === 1) {
-            return $next($request); // Kullanıcı türü 1 ise devam et
+        if (Auth::check() && Auth::user()->type === true) {
+            return $next($request); // Kullanıcı türü true ise devam et
         }
 
         // Yetkisiz kullanıcıyı yönlendir veya hata döndür

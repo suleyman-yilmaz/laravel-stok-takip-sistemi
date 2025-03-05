@@ -52,7 +52,7 @@
                                 <div class="d-flex align-items-center justify-content-around m-4">
                                     <div class="text-center">
                                         <h4 class="mb-0 fw-semibold lh-1">
-                                            {{ $email }}
+                                            {{ $user->email }}
                                         </h4>
                                     </div>
                                 </div>
@@ -63,14 +63,14 @@
                                         <div class="d-flex align-items-center justify-content-center round-110">
                                             <div
                                                 class="border border-4 border-white d-flex align-items-center justify-content-center rounded-circle overflow-hidden round-100">
-                                                <img src="@if ($userGender == '1') {{ asset('assets/images/profile/user-1.jpg') }}
+                                                <img src="@if ($user->gender == '1') {{ asset('assets/images/profile/user-1.jpg') }}
                                                             @else {{ asset('assets/images/profile/user-2.jpg') }} @endif"
                                                     alt="materialm-img" class="w-100 h-100">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="text-center">
-                                        <h5 class="mb-0">{{ $userName }}</h5><br>
+                                        <h5 class="mb-0">{{ $user->name }}</h5><br>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                     <div class="card-body">
                                         <h4 class="mb-3">Sistem Hakkında</h4>
                                         <p class="card-subtitle">
-                                            Merhaba <strong style="color: black">{{ $userName }},</strong><br>
+                                            Merhaba <strong style="color: black">{{ $user->name }},</strong><br>
                                             {{ $aboutDescription1->description }}
                                         </p>
                                         <p class="card-subtitle mt-3">

@@ -57,27 +57,27 @@ class DashboardController extends Controller
                 ->whereDate('created_at', date('Y-m-d'))
                 ->count(); // Kullanıcının bugün çıkışı yapılan ürün sayısı
 
-            $totalEntryPrice = ProductsIn::where('user_id', $userId)->sum('total_amount'); // Kullanıcının toplam girdi fiyatı
-            $totalOutputPrice = ProductsOut::where('user_id', $userId)->sum('total_amount'); // Kullanıcının toplam çıktı fiyatı
+            $totalEntryPrice = ProductsIn::where('user_id', $userId)->sum(DB::raw('CAST(total_amount AS NUMERIC)')); // Kullanıcının toplam girdi fiyatı
+            $totalOutputPrice = ProductsOut::where('user_id', $userId)->sum(DB::raw('CAST(total_amount AS NUMERIC)')); // Kullanıcının toplam çıktı fiyatı
 
             $totalDifference = 0;
             $message = '';
             $messageClass = '';
 
             // Popüler ürünleri sorgularken de user_id'ye göre filtreleme
-            $popularProducts = StockCards::where('user_id', $userId) // Oturum açmış kullanıcıya ait stok kartları
+            $popularProducts = StockCards::where('user_id', $userId)
                 ->withCount(['productsIn', 'productsOut']) // Giriş ve çıkış sayıları
                 ->with(['productsIn' => function ($query) use ($userId) {
-                    $query->where('user_id', $userId); // Kullanıcıya ait ürün girişleri
+                    $query->where('user_id', $userId);
                 }, 'productsOut' => function ($query) use ($userId) {
-                    $query->where('user_id', $userId); // Kullanıcıya ait ürün çıkışları
+                    $query->where('user_id', $userId);
                 }])
-                ->having(function ($query) {
-                    $query->having('products_in_count', '>=', 10) // 10 veya daha fazla ürün girişi
-                        ->orHaving('products_out_count', '>=', 10); // 10 veya daha fazla ürün çıkışı
-                })
-                ->get();
+                ->get(); // Verileri al
 
+            // Süzme işlemini PHP'de yap
+            $popularProducts = $popularProducts->filter(function ($stockCard) {
+                return $stockCard->products_in_count >= 10 || $stockCard->products_out_count >= 10;
+            });
 
             if ($totalEntryPrice > $totalOutputPrice) {
                 $message = 'Zarardasınız';
