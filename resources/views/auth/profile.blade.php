@@ -86,7 +86,7 @@
                                     </li>
                                     <li>
                                         <a class="btn btn-secondary d-flex align-items-center justify-content-center p-2 fs-4 rounded-circle"
-                                            href="https://suleyman-yilmaz-portfolio.vercel.app/" target="_blank">
+                                            href="https://suleymanyilmaz.laravel.cloud/" target="_blank">
                                             <i class="ti ti-brand-dribbble"></i>
                                         </a>
                                     </li>
